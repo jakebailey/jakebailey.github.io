@@ -23,7 +23,11 @@
         "**/*-lock.json",
         "dist/**",
         "coverage/**",
-        "themes/**"
+        "themes/**",
+        "public/**",
+        "resources/_gen/**",
+        "assets/jsconfig.json",
+        "**/hugo_stats.json"
     ],
     "plugins": [
         "https://plugins.dprint.dev/typescript-0.83.0.wasm",
