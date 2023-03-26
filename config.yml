@@ -2,3 +2,21 @@ baseURL: https://jakebailey.github.io/
 languageCode: en-us
 title: Jake Bailey
 theme: PaperMod
+
+params:
+  homeInfoParams:
+    title: ":)"
+
+  socialIcons:
+    - name: github
+      url: "https://github.com/jakebailey"
+    - name: mastodon
+      url: "https://fosstodon.org/@jakebailey"
+    - name: twitter
+      url: "https://twitter.com/andhaveaniceday"
+
+outputs:
+  home:
+    - HTML
+    - RSS
+    - JSON
