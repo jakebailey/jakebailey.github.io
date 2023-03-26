@@ -5,7 +5,11 @@ theme: PaperMod
 
 params:
   homeInfoParams:
-    title: ":)"
+    title: "Hi, I'm Jake."
+    content: |
+      I'm a Senior Software Engineer at Microsoft, working on TypeScript.
+
+      Here's where I put random stuff.
 
   socialIcons:
     - name: github
@@ -14,6 +18,27 @@ params:
       url: "https://fosstodon.org/@jakebailey"
     - name: twitter
       url: "https://twitter.com/andhaveaniceday"
+    - name: linkedin
+      url: "https://linkedin.com/in/jakebbailey"
+    - name: rss
+      url: "index.xml"
+
+  showReadingTime: true
+  showBreadCrumbs: true
+  showPostNavLinks: true
+  showCodeCopyButtons: true
+
+menu:
+  main:
+    - name: Posts
+      url: /posts
+      weight: 5
+    - name: Archive
+      url: /archives
+      weight: 10
+    - name: Search
+      url: /search
+      weight: 15
 
 outputs:
   home:
