@@ -1,0 +1,34 @@
+{
+    "indentWidth": 4,
+    "lineWidth": 120,
+    "newLineKind": "auto",
+    "useTabs": false,
+    "typescript": {
+        "quoteStyle": "preferDouble",
+        "semiColons": "always",
+        "arrowFunction.useParentheses": "force"
+    },
+    "json": {
+    },
+    "markdown": {
+        "textWrap": "always",
+        "lineWidth": 80
+    },
+    "prettier": {
+        "tabWidth": 2 // for yaml
+    },
+    "includes": ["**/*.{ts,tsx,js,jsx,cjs,mjs,json,md,yml}"],
+    "excludes": [
+        "**/node_modules",
+        "**/*-lock.json",
+        "dist/**",
+        "coverage/**",
+        "themes/**"
+    ],
+    "plugins": [
+        "https://plugins.dprint.dev/typescript-0.83.0.wasm",
+        "https://plugins.dprint.dev/json-0.17.0.wasm",
+        "https://plugins.dprint.dev/markdown-0.15.2.wasm",
+        "https://plugins.dprint.dev/prettier-0.20.0.json@a858510ad0110784e7583b02c38d6ee6bfd448c8087ba2303312ca3cd5899561"
+    ]
+}
