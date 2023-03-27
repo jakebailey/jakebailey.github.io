@@ -24,7 +24,7 @@ processing _over 9,000_ packages. And that's slow! Or is it?
 # Taking a profile
 
 Many people may not know this, but I've actually written more Go than I have
-TypeScript. [^go] As such, when I have a performance problem, the tool I like to
+TypeScript.[^go] As such, when I have a performance problem, the tool I like to
 use is [pprof](https://github.com/google/pprof).
 
 [^go]: Well, this used to be true, but might not be anymore. Definitely not if
@@ -34,7 +34,7 @@ you `git blame` the TypeScript repo and forget to use `.git-blame-ignore-revs`!
 More commonly, this tool is used when profiling Go, C, C++ code. And I like this
 tool! Lucky for me, there is
 [a library](https://www.npmjs.com/package/@datadog/pprof) which lets you use it
-with Node. [^datadog] The API is pretty straightforward; you can start and stop
+with Node.[^datadog] The API is pretty straightforward; you can start and stop
 both CPU and heap profiles, and write them to disk.
 
 [^datadog]: Okay, this is a fork of
