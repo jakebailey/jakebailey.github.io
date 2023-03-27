@@ -6,6 +6,7 @@
         "cpuprofile",
         "dependants",
         "flamegraph",
+        "jakebailey",
         "pkgs",
         "pprof",
         "rushstack",
