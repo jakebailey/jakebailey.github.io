@@ -424,6 +424,9 @@ _do_ find something, it's worth having spent a few minutes trying it out.
 In case you're curious what else we've (me and the TypeScript team) have been
 able to find, check out these PRs and issues:
 
+- A [performance boost](https://github.com/microsoft/TypeScript/pull/53346) from
+  avoiding the calculation of all properties of unions / intersections where all
+  we wanted to know is if any type matches a condition.
 - A
   [performance regression](https://github.com/microsoft/TypeScript/issues/52345)
   I (unwittingly) introduced in TypeScript's string template literals when used
