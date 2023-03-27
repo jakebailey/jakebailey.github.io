@@ -1,4 +1,5 @@
-.post-content p {
+.post-content p,
+.post-content li {
   text-align: justify;
   -webkit-hyphens: auto;
   -moz-hyphens: auto;
