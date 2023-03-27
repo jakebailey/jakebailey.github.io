@@ -427,6 +427,8 @@ able to find, check out these PRs and issues:
 - A [performance boost](https://github.com/microsoft/TypeScript/pull/53346) from
   avoiding the calculation of all properties of unions / intersections where all
   we wanted to know is if any type matches a condition.
+- A [performance boost](https://github.com/microsoft/TypeScript/pull/53358) by
+  discovering that a computation was not being cached.
 - A
   [performance regression](https://github.com/microsoft/TypeScript/issues/52345)
   I (unwittingly) introduced in TypeScript's string template literals when used
