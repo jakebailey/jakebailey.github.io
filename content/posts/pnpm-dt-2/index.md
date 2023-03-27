@@ -44,7 +44,8 @@ one hasn't been updated in years, and DataDog's fork includes prebuilt
 Unfortunately, that's a little annoying, because effectively 100% of the time,
 I'm profiling a CLI application or someone else's project where I don't really
 want to inject the code. It does include some code to let you do
-`node --require=pprof myScript.js`, but there's no configurability.
+`node --require=pprof myScript.js`, but there's no way to configure its
+behavior.
 
 So a few years ago, I made a little wrapper,
 [pprof-it](https://www.npmjs.com/package/pprof-it), which makes things much
@@ -100,7 +101,7 @@ flame view.
 
 [^anonymous]: This is something I've been meaning to dig into, but it turns out
 to be a problem that also happens to the more typical `.cpuprofile` files Node
-performance nerds may already be familar with, so I just haven't prioritized
+performance nerds may already be familiar with, so I just haven't prioritized
 looking into it.
 
 ![A pprof profile of the original test case; two large blocks. The overall execution takes about 100 seconds.](profile1.png#center)
@@ -208,7 +209,7 @@ that is going to take a while.
 At the top level, we're already looping over every entry in the object via
 ramda's `mapValues`. But, if we look inside `createNode`, we can see that it is
 _also_ looping over all of `pkgMap` by calling `Object.values(pkgMap)`! This is
-quadradic; we'll be doing 9,000 x 9,000 scans over the array. We could fix this
+quadratic; we'll be doing 9,000 x 9,000 scans over the array. We could fix this
 by instead creating a mapping and accessing it instead. For example, one of the
 loops is just looking for all of the entries in `pkgMap` where
 `pkg.manifest.name` is some value. We could precalculate this mapping, producing
@@ -263,12 +264,12 @@ function createPkgGraph(pkgs: Array<Package>) {
 
 This turns out to save the bulk of the time. Yay!
 
-Algorithmically, the code is still quadradic, but it's still a lot faster and
+Algorithmically, the code is still quadratic, but it's still a lot faster and
 this kind of change is very safe, safe enough to be backported. I sent this one
 as a [quick PR](https://github.com/pnpm/pnpm/pull/6281), and it's now out in
 v7.30.4.
 
-The fix to the quadradic-ness is going to be a different, more complicated
+The fix to the quadratic-ness is going to be a different, more complicated
 change I plan to send later.
 
 # `getRootPackagesToLink`
@@ -318,10 +319,10 @@ is small. So that's not likely to be it.
 The `importerManifestsByImporterId` loop, on the other hand, is suspicious. I
 just said that `getRootPackagesToLink` is called once per package in the repo.
 But, `opts.projects` _is_ a big list of all packages in the repo! We're
-quadradic again!
+quadratic again!
 
 This is better than before, in theory; there are lookups inside the `.map` call
-below, but they're efficient becuase they don't loop over `opts.projects` (as
+below, but they're efficient because they don't loop over `opts.projects` (as
 opposed to `createNode` from earlier, which _does_ do the linear lookup). But,
 `getRootPackagesToLink` is recreating this mapping every single time it's
 called!
@@ -400,7 +401,7 @@ Much different. We can see that the huge obvious blocks are gone, leaving us
 with a bunch of small stuff (if two obvious chunks were "the dream", a bunch of
 small stuff is "the nightmare"). We can still see that `createPkgGraph` is still
 the most obvious chunk, lending to the fact that we didn't fix the fact that
-it's quadradic. But, if we fix that, that'll be a few more seconds saved! And,
+it's quadratic. But, if we fix that, that'll be a few more seconds saved! And,
 we can profile it again, and maybe we can look into `sequenceGraph` or
 `getAllProjects`, the next big chunks.
 
@@ -416,7 +417,7 @@ To recap, we:
 - Got lucky, addressing both problems by simply shifting some code around.
 - Made `pnpm` 4x faster! (For this super ridiculous test case, anyway.)
 
-I hope this was informative. Profiling is an exellent trick to have in your
+I hope this was informative. Profiling is an excellent trick to have in your
 toolbox. Sometimes, you'll be unlucky and it won't show you much. But, when you
 _do_ find something, it's worth having spent a few minutes trying it out.
 

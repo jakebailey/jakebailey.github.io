@@ -1,4 +1,14 @@
 {
     "editor.defaultFormatter": "dprint.dprint",
-    "editor.formatOnSave": true
+    "editor.formatOnSave": true,
+    "cSpell.words": [
+        "backported",
+        "cpuprofile",
+        "dependants",
+        "flamegraph",
+        "pkgs",
+        "pprof",
+        "rushstack",
+        "speedscope"
+    ]
 }

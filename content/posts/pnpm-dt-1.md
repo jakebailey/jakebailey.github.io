@@ -115,7 +115,7 @@ And so, DT is a monorepo, but, it also isn't, at least not in the way that
 people have come to know _most_ monorepos in the JS world.
 
 Of course, there are exceptions to every rule. A small fraction (~15%) of DT
-_do_ have `package.json` files. This is becuase some packages depend on the
+_do_ have `package.json` files. This is because some packages depend on the
 types of packages _not in DefinitelyTyped_. This makes sense; a lot of packages
 are now written in TypeScript directly, and so publish their types directly,
 without involving DT. If a package typed on DT depends on a package that already
@@ -183,19 +183,19 @@ only package manager which meets these requirements is
 [`pnpm`](https://pnpm.io/). The other choices either ban packages of duplicated
 names, are generally not configurable enough, or take too long to install
 (though no option is likely _slower_ than the 30 minute CI install). I'm not
-super susprised; `pnpm` is the default package manager of the
+super surprised; `pnpm` is the default package manager of the
 [`rushstack`](https://rushstack.io/) tooling and there are some pretty
 ridiculously sized monorepos using it.
 
-Even still, `pnpm`'s great performance still _felt_ a litle slow. I noticed that
-on install it'd hang and then start printing text, implying some performance
-problem. Not shocking; the number of packages it finally resolves to is
-[over 9,000](https://www.youtube.com/watch?v=SiMHTK15Pik), and I'd think any
+Even still, `pnpm`'s great performance still _felt_ a little slow. I noticed
+that on install it'd hang and then start printing text, implying some
+performance problem. Not shocking; the number of packages it finally resolves to
+is [over 9,000](https://www.youtube.com/watch?v=SiMHTK15Pik), and I'd think any
 tool would chug with that much work to do.
 
 But, there's good news! By profiling `pnpm install`, I discovered that that the
 performance holes are mostly just cases of
-["accidentally quadradic"](https://accidentallyquadratic.tumblr.com/) code, and
+["accidentally quadratic"](https://accidentallyquadratic.tumblr.com/) code, and
 therefore can be addressed.
 
 And that's the _actual_ thing I wanted to write about before I got carried away.
