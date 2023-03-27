@@ -438,3 +438,6 @@ able to find, check out these PRs and issues:
   `pprof` had pointed out that a lot of time during a build of a TypeScript
   project was being spent normalizing paths, even if the platform was UNIX-like
   and the paths were already using the correct slashes.
+- A [PR I sent back](https://github.com/microsoft/pyright/pull/1774) when I was
+  working on Pylance/pyright, where 50% of GC time was spent concatenating
+  strings.
