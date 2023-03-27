@@ -30,6 +30,9 @@ params:
   showReadingTime: true
   showPostNavLinks: true
   showCodeCopyButtons: true
+  showToc: true
+  showFullTextInRSS: true
+  showWordCount: true
 
 menu:
   main:
