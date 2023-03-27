@@ -326,7 +326,7 @@ opposed to `createNode` from earlier, which _does_ do the linear lookup). But,
 `getRootPackagesToLink` is recreating this mapping every single time it's
 called!
 
-If we scroll down a little bit, we can find it sole caller:
+If we scroll down a little bit, we can find its sole caller:
 
 ```ts
 const projectsToLink = Object.fromEntries(
@@ -344,7 +344,7 @@ const projectsToLink = Object.fromEntries(
 );
 ```
 
-There's that "for each package" thing again. Thankfully, we again can see that
+There's that "for each package" thing again. Thankfully, we can again see that
 `projects` is not changing between calls. So, we can instead calculate this
 mapping _once_ and pass it in to `getRootPackagesToLink`, again without changing
 much logic.
