@@ -266,7 +266,7 @@ This turns out to save the bulk of the time. Yay!
 Algorithmically, the code is still quadradic, but it's still a lot faster and
 this kind of change is very safe, safe enough to be backported. I sent this one
 as a [quick PR](https://github.com/pnpm/pnpm/pull/6281), and it's now out in
-v7.30.3.
+v7.30.4.
 
 The fix to the quadradic-ness is going to be a different, more complicated
 change I plan to send later.
@@ -374,7 +374,7 @@ Now drop the code to produce the mapping from `getRootPackagesToLink` and we're
 done.
 
 I sent this as [a PR](https://github.com/pnpm/pnpm/pull/6282) over too, and it
-also is available in v7.30.3.
+also is available in v7.30.4.
 
 # The "final" result (for now)
 
@@ -382,7 +382,7 @@ Now that we have these two fixes in, let's re-profile `pnpm install` for the
 newer version:
 
 ```plaintext
-$ npx --package=pnpm@7.30.3 -c 'pprof-it $(which pnpm) install'
+$ npx --package=pnpm@7.30.4 -c 'pprof-it $(which pnpm) install'
 # ...
 Done in 13.6s
 ```
