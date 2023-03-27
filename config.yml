@@ -24,7 +24,6 @@ params:
       url: "index.xml"
 
   showReadingTime: true
-  showBreadCrumbs: true
   showPostNavLinks: true
   showCodeCopyButtons: true
 
