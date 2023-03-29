@@ -9,7 +9,7 @@ tags:
   - monorepo
 ---
 
-# What is "DefinitelyTyped"?
+## What is "DefinitelyTyped"?
 
 Generally speaking, there are two categories of packages on npm:
 
@@ -36,7 +36,7 @@ Packages published under the `@types` scope come from
 is hard, but the infrastructure is powerful enough to automate most PRs and
 automatically publish these packages every half hour.
 
-# How is DT laid out?
+## How is DT laid out?
 
 In the DT repo, there's a directory named "types", and that directory has all
 8,000+ packages. With so many packages, you'd expect this to be one of those
@@ -122,7 +122,7 @@ without involving DT. If a package typed on DT depends on a package that already
 has types, then the DT types will likely need types from that dependency as
 well.
 
-# What's the problem?
+## What's the problem?
 
 It turns out that we've recently felt the need to change the status quo, for at
 least two reasons.
@@ -158,7 +158,7 @@ This (theoretically) gets us a much faster install time, as well as getting us a
 final state on disk that matches what downstream users see, enabling packages to
 start making use of `"moduleResolution": "node16"`.
 
-# What next?
+## What next?
 
 This is a cool idea in theory, but to make it real, we have to make some
 choices. Specifically, the tooling. There are some unique restrictions which
@@ -202,7 +202,7 @@ And that's the _actual_ thing I wanted to write about before I got carried away.
 For details on that, check out the [next post in this series]({{< ref
 "posts/pnpm-dt-2" >}}).
 
-# 👋 package manager maintainers
+## 👋 package manager maintainers
 
 There's no doubt in my mind that this post will eventually make its way to the
 maintainers of the other package managers and monorepo tools. Understand, I

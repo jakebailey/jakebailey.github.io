@@ -13,7 +13,7 @@ tags:
   - pprof-it
 ---
 
-# Background
+## Background
 
 For more background, see the [previous post about DefinitelyTyped]({{< ref
 "posts/pnpm-dt-1" >}}).
@@ -21,7 +21,7 @@ For more background, see the [previous post about DefinitelyTyped]({{< ref
 TL;DR: DefinitelyTyped is huge; installing it in its entirety involves
 processing _over 9,000_ packages. And that's slow! Or is it?
 
-# Taking a profile
+## Taking a profile
 
 Many people may not know this, but I've actually written more Go than I have
 TypeScript.[^go] As such, when I have a performance problem, the tool I like to
@@ -113,7 +113,7 @@ note that at this point in my adventure, I know _absolutely nothing_ about how
 `pnpm` works; I haven't even checked out the repo. But, now I know exactly where
 to look! (If `pnpm` had been minified, I'd be in a much worse position.)
 
-# Working through the code
+## Working through the code
 
 From the get-go I can see that there's a lot of time spent in `resolve`. One
 thing I hadn't mentioned was how I set up this huge monorepo; my
@@ -136,7 +136,7 @@ the profile looks like this:
 Alright, that's better already, down from ~100 seconds to 64 seconds. We'll come
 back to `resolve` later.
 
-# `createPkgGraph`
+## `createPkgGraph`
 
 The first block is the first "very long pause" (which happens even in the "new"
 version of the repo), so let's start there. Searching the `pnpm` codebase, I
@@ -272,7 +272,7 @@ v7.30.4.
 The fix to the quadratic-ness is going to be a different, more complicated
 change I plan to send later.
 
-# `getRootPackagesToLink`
+## `getRootPackagesToLink`
 
 Let's look at the second big chunk. Cut down for brevity again, we have:
 
@@ -377,7 +377,7 @@ done.
 I sent this as [a PR](https://github.com/pnpm/pnpm/pull/6282) over too, and it
 also is available in v7.30.4.
 
-# The "final" result (for now)
+## The "final" result (for now)
 
 Now that we have these two fixes in, let's re-profile `pnpm install` for the
 newer version:
@@ -405,7 +405,7 @@ it's quadratic. But, if we fix that, that'll be a few more seconds saved! And,
 we can profile it again, and maybe we can look into `sequenceGraph` or
 `getAllProjects`, the next big chunks.
 
-# Recapping
+## Recapping
 
 To recap, we:
 
