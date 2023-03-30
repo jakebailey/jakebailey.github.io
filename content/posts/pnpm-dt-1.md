@@ -9,6 +9,12 @@ tags:
   - monorepo
 ---
 
+This post is a brief(-ish) overview of the current state of DefinitelyTyped and
+its (potential) future. If you're looking for deep history, you should
+definitely check out John Reilly's
+["Definitely Typed: The Movie"](https://johnnyreilly.com/definitely-typed-the-movie),
+which tells the story of DefinitelyTyped from the start in 2012.
+
 ## What is "DefinitelyTyped"?
 
 Generally speaking, there are two categories of packages on npm:
