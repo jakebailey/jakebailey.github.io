@@ -2,13 +2,16 @@ baseURL: https://jakebailey.dev/
 languageCode: en-us
 title: Jake Bailey
 theme: PaperMod
-
 params:
+  description: >
+    Hi, I'm Jake.
+    I'm a Senior Software Engineer at Microsoft, working on TypeScript.
+    Here's where I put random stuff.
+
   homeInfoParams:
     title: "Hi, I'm Jake."
-    content: |
+    content: >
       I'm a Senior Software Engineer at Microsoft, working on TypeScript.
-
       Here's where I put random stuff.
 
   socialIcons:
