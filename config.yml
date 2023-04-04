@@ -3,6 +3,7 @@ languageCode: en-us
 title: Jake Bailey
 theme: PaperMod
 params:
+  env: production
   description: >
     Hi, I'm Jake.
     I'm a Senior Software Engineer at Microsoft, working on TypeScript.
@@ -36,6 +37,9 @@ params:
   showToc: true
   showFullTextInRSS: true
   showWordCount: true
+
+  schema:
+    publisherType: Person
 
 menu:
   main:
