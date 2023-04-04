@@ -36,8 +36,8 @@ params:
 
 menu:
   main:
-    - name: Posts
-      url: /posts
+    - name: Projects
+      url: /projects
       weight: 5
     - name: Archive
       url: /archives
