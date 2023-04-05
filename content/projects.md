@@ -11,9 +11,11 @@ Here's a listing of a few of my side projects.
 
 ## hereby
 
-[hereby](https://hereby.js.org) is a simple task runner. I created it during the
-conversion of TypeScript so I could better represent the dependency graph of all
-of our build steps, as well as eliminate a huge swath of devDependencies.
+[hereby](https://hereby.js.org) is a simple task runner, kinda like `gulp` or
+`make`, but much smaller (\~500 lines). I created it during the
+[conversion of TypeScript to modules](https://devblogs.microsoft.com/typescript/typescripts-migration-to-modules/)
+so I could better represent the dependency graph of all of our build steps, as
+well as eliminate a huge swath of devDependencies.
 
 Go ahead and use it, if you dare; the only user I plan on actually supporting is
 TypeScript itself, though some daring projects appear to have switched to it.
