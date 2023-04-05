@@ -21,14 +21,15 @@ TypeScript itself, though some daring projects appear to have switched to it.
 ## pyright-action
 
 [pyright-action](https://github.com/jakebailey/pyright-action) is a GitHub
-Action for pyright, allowing for fast execution through caching and PR comments
-for errors.
+Action for pyright (a type checker for Python), allowing for fast execution
+through caching, plus PR comments for errors.
 
 ## pprof-it
 
-[pprof-it](https://www.npmjs.com/package/pprof-it) is a little wrapper for
-pprof, allowing for quick and easy profiling of Node programs. If I'm profiling
-something that can be run at the CLI, I'm using this.
+[pprof-it](https://www.npmjs.com/package/pprof-it) is wrapper for pprof,
+allowing for quick and easy profiling of Node programs that can be loaded into
+the [pprof tooling](https://github.com/google/pprof). If I'm profiling something
+that can be run at the CLI, I'm using this.
 
 ## esbuild-playground
 
