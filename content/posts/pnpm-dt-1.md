@@ -1,6 +1,6 @@
 ---
 title: "What is DefinitelyTyped, and is it a monorepo?"
-date: 2023-03-26T11:26:21-07:00
+date: "2023-03-26T11:26:21-07:00"
 summary: "Yes, it is! Kinda."
 description: "Yes, it is! Kinda."
 tags:

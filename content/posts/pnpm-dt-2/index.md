@@ -1,6 +1,6 @@
 ---
 title: "Speeding up pnpm"
-date: 2023-03-26T13:29:45-07:00
+date: "2023-03-26T13:29:45-07:00"
 summary: "DefinitelyTyped contains over 8000 packages. What could go wrong?"
 description: "DefinitelyTyped contains over 8000 packages. What could go wrong?"
 tags:
