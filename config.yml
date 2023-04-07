@@ -1,7 +1,8 @@
 baseURL: https://jakebailey.dev/
 languageCode: en-us
 title: Jake Bailey
-theme: PaperMod
+theme: github.com/adityatelange/hugo-PaperMod
+
 params:
   env: production
   description: >
