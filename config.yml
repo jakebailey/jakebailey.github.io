@@ -42,6 +42,10 @@ params:
   schema:
     publisherType: Person
 
+  extraSiteMap:
+    - https://jakebailey.dev/esbuild-playground/
+    - https://jakebailey.dev/hereby/
+
 menu:
   main:
     - name: Projects
