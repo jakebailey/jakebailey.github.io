@@ -1,0 +1,3 @@
+---
+redirectUrl: https://example.com
+---
