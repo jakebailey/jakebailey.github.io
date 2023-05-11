@@ -6,6 +6,7 @@
         "cpuprofile",
         "dependants",
         "flamegraph",
+        "goatcounter",
         "jakebailey",
         "pkgs",
         "pprof",
