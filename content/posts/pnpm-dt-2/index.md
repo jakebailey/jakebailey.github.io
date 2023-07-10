@@ -39,7 +39,7 @@ both CPU and heap profiles, and write them to disk.
 
 [^datadog]: Okay, this is a fork of
 [the original](https://www.npmjs.com/package/pprof) released by Google, but that
-one hasn't been updated in years, and DataDog's fork includes prebuilt
+one hasn't been updated in years, and DataDog's fork includes prebuilt binaries.
 
 Unfortunately, that's a little annoying, because effectively 100% of the time,
 I'm profiling a CLI application or someone else's project where I don't really
