@@ -18,19 +18,19 @@ params:
 
   socialIcons:
     - name: github
-      url: "https://github.com/jakebailey"
+      url: 'https://github.com/jakebailey'
     - name: mastodon
-      url: "https://fosstodon.org/@jakebailey"
+      url: 'https://fosstodon.org/@jakebailey'
     - name: twitter
-      url: "https://twitter.com/andhaveaniceday"
+      url: 'https://twitter.com/andhaveaniceday'
     - name: reddit
-      url: "https://www.reddit.com/user/Bake_Jailey"
+      url: 'https://www.reddit.com/user/Bake_Jailey'
     - name: ycombinator
-      url: "https://news.ycombinator.com/user?id=jakebailey"
+      url: 'https://news.ycombinator.com/user?id=jakebailey'
     - name: linkedin
-      url: "https://linkedin.com/in/jakebbailey"
+      url: 'https://linkedin.com/in/jakebbailey'
     - name: rss
-      url: "index.xml"
+      url: 'index.xml'
 
   showReadingTime: true
   showPostNavLinks: true
