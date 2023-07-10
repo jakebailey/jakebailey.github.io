@@ -26,7 +26,12 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - uses: jakejarvis/hugo-build-action@v0.112.4
+      - uses: peaceiris/actions-hugo@v2
+        with:
+          hugo-version: "v0.112.4"
+          extended: true
+
+      - run: hugo
 
       - name: Setup Pages
         id: pages
