@@ -26,7 +26,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - uses: jakejarvis/hugo-build-action@v0.111.3
+      - uses: jakejarvis/hugo-build-action@v0.112.4
 
       - name: Setup Pages
         id: pages
