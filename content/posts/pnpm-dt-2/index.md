@@ -272,6 +272,12 @@ v7.30.4.
 The fix to the quadratic-ness is going to be a different, more complicated
 change I plan to send later.
 
+**UPDATE:** Later is now the past! All of the quadratic-ness has been fixed as
+of:
+
+- [perf(pkgs-graph): speed up createPkgGraph by using a table for manifest name lookup](https://github.com/pnpm/pnpm/pull/6287)
+- [perf(pkgs-graph): speed up createPkgGraph when directory specifiers are present](https://github.com/pnpm/pnpm/pull/6317)
+
 ## `getRootPackagesToLink`
 
 Let's look at the second big chunk. Cut down for brevity again, we have:
