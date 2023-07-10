@@ -28,7 +28,7 @@ jobs:
 
       - uses: peaceiris/actions-hugo@v2
         with:
-          hugo-version: "v0.112.4"
+          hugo-version: "0.112.4"
           extended: true
 
       - run: hugo
