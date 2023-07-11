@@ -21,7 +21,7 @@ defaults:
     shell: bash
 
 env:
-  # renovate: datasource=go depName=github.com/gohugoio/hugo
+  # renovate: datasource=go depName=github.com/gohugoio/hugo versioning=semver
   HUGO_VERSION: '0.112.4'
 
 jobs:
