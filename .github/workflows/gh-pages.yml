@@ -1,7 +1,10 @@
-name: Publish to GitHub Pages
+name: GitHub Pages
 
 on:
   push:
+    branches:
+      - main
+  pull_request:
     branches:
       - main
 
@@ -40,13 +43,16 @@ jobs:
       - name: Setup Pages
         id: pages
         uses: actions/configure-pages@f156874f8191504dae5b037505266ed5dda6c382 # v3
+        if: github.event_name != 'pull_request'
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@a753861a5debcf57bf8b404356158c8e1e33150c # v2
+        if: github.event_name != 'pull_request'
         with:
           path: ./public
 
   deploy:
+    if: github.event_name != 'pull_request'
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
