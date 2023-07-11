@@ -20,6 +20,10 @@ defaults:
   run:
     shell: bash
 
+env:
+  # renovate: datasource=go depName=github.com/gohugoio/hugo
+  HUGO_VERSION: '0.112.4'
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -28,7 +32,7 @@ jobs:
 
       - uses: peaceiris/actions-hugo@v2
         with:
-          hugo-version: '0.112.4'
+          hugo-version: ${{ HUGO_VERSION }}
           extended: true
 
       - run: hugo
