@@ -21,7 +21,7 @@ defaults:
     shell: bash
 
 env:
-  # renovate: datasource=go depName=github.com/gohugoio/hugo extractVersion=^v(?<version>.*)$
+  # renovate: datasource=go depName=github.com/gohugoio/hugo versioningTemplate=^v(?<version>.*)$
   HUGO_VERSION: '0.112.4'
 
 jobs:
