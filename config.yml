@@ -19,6 +19,8 @@ params:
   socialIcons:
     - name: github
       url: 'https://github.com/jakebailey'
+    - name: bluesky
+      url: 'https://bsky.app/profile/jakebailey.dev'
     - name: mastodon
       url: 'https://fosstodon.org/@jakebailey'
     - name: twitter
