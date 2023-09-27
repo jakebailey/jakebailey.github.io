@@ -40,6 +40,7 @@ params:
   showToc: true
   showFullTextInRSS: true
   showWordCount: true
+  comments: true
 
   schema:
     publisherType: Person

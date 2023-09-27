@@ -6,6 +6,7 @@
         "cpuprofile",
         "dependants",
         "flamegraph",
+        "giscus",
         "goatcounter",
         "gohugoio",
         "gomod",
