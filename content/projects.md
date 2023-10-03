@@ -20,6 +20,12 @@ well as eliminate a huge swath of devDependencies.
 Go ahead and use it, if you dare; the only user I plan on actually supporting is
 TypeScript itself, though some daring projects appear to have switched to it.
 
+## every-ts
+
+[every-ts](https://github.com/jakebailey/every-ts) is a utility that can build
+and bisect any version / commit of TypeScript. It's useful for finding which PR
+broke (or fixed) something, without figuring out how to build TypeScript.
+
 ## pyright-action
 
 [pyright-action](https://github.com/jakebailey/pyright-action) is a GitHub
