@@ -48,6 +48,7 @@ params:
   extraSiteMap:
     - https://jakebailey.dev/esbuild-playground/
     - https://jakebailey.dev/hereby/
+    - https://jakebailey.dev/dt-dashboard/
 
   mainSections:
     - posts
