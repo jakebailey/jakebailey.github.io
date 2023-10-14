@@ -9,6 +9,7 @@ cascade:
   showReadingTime: false
   showToc: false
   showWordCount: false
+  searchHidden: true
   _build:
     list: never
 ---

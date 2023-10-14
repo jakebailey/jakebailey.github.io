@@ -49,6 +49,9 @@ params:
     - https://jakebailey.dev/esbuild-playground/
     - https://jakebailey.dev/hereby/
 
+  mainSections:
+    - posts
+
 menu:
   main:
     - name: Projects
