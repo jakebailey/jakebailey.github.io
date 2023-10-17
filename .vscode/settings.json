@@ -2,20 +2,31 @@
     "editor.defaultFormatter": "dprint.dprint",
     "editor.formatOnSave": true,
     "cSpell.words": [
+        "backburner",
         "backported",
         "cpuprofile",
         "dependants",
+        "dtslint",
         "flamegraph",
+        "gensync",
         "giscus",
         "goatcounter",
         "gohugoio",
         "gomod",
         "jakebailey",
+        "Johan",
+        "nodenext",
+        "Palmfjord",
         "peaceiris",
         "pkgs",
+        "POSIX",
         "pprof",
+        "reparse",
         "rushstack",
         "speedscope",
-        "ycombinator"
+        "undici",
+        "Woah",
+        "ycombinator",
+        "Zoltan"
     ]
 }
