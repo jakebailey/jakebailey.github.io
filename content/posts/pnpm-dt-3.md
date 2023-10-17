@@ -70,9 +70,9 @@ things"?
 Obviously, all of that was a good 6 months ago. There were some unresolved
 blockers that made me put the project on the backburner. What changed?
 
-Recently,
+Recently, Andrew merged
 [`fetch` support](https://github.com/DefinitelyTyped/DefinitelyTyped/pull/66824)
-was added to `@types/node`. Yay!
+into `@types/node`. Yay!
 
 But, you might have noticed that _only_ `@types/node@20` got this feature.
 Surprise! It's the second bullet point from above. DefinitelyTyped's fake module
