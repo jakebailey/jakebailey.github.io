@@ -56,9 +56,9 @@ downsides, including:
 - Long `npm install` times when external dependencies are needed, especially
   when testing the entire repo. The tooling just looped over every folder with a
   `package.json` and ran `npm install`.
-- Completely unrealistic module resolution (no `node16`/`nodenext`, no `export`
-  maps, etc.) thanks to the use of `baseUrl`, `typeRoots`, and `paths`. Not even
-  `typesVersions` works.
+- Completely unrealistic module resolution (no `node16` / `nodenext`, no
+  `export` maps, etc.) thanks to the use of `baseUrl`, `typeRoots`, and `paths`.
+  Not even `typesVersions` works.
 
 I also talked about [what we could do]({{< ref "posts/pnpm-dt-1#what-next" >}})
 to remedy the situation, which boils down to "what if we were just a monorepo
@@ -291,7 +291,7 @@ meaning that we can use fun features like `--filter` (more on that later).
 ```
 
 This is new. For the most part, this will contain just one thing; a
-self-dependency. Without the `baseUrl`/`typeRoots`/`paths` combo, a package
+self-dependency. Without the `baseUrl` / `typeRoots` / `paths` combo, a package
 can't find itself anymore, but that's the API that we're wanting to test. `pnpm`
 doesn't yet support creating self-links, so we do it ourselves using a
 `workspace:.` specifier.[^self-link]
@@ -438,7 +438,7 @@ particular order:
   get included in each package, which is still mostly implicit).
 - It turns out that a load of `react`-based types packages are broken at the
   moment due to `@types/react` using `typesVersions`. Since `typesVersions` is
-  in `package.json`, but `baseUrl`/`typesRoot`/`paths` skip `package.json`
+  in `package.json`, but `baseUrl` / `typesRoot` / `paths` skip `package.json`
   resolution, packages that depend on `@types/react` always get the types meant
   for TS 5.1 and above. Oops. With actual `node_modules` linking, this isn't a
   problem and things work as intended. Another reason to speed this along.
