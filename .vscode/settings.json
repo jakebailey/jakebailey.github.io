@@ -2,8 +2,10 @@
     "editor.defaultFormatter": "dprint.dprint",
     "editor.formatOnSave": true,
     "cSpell.words": [
+        "adityatelange",
         "backburner",
         "backported",
+        "bluesky",
         "cpuprofile",
         "dependants",
         "dtslint",
