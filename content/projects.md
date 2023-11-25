@@ -26,12 +26,6 @@ TypeScript itself, though some daring projects appear to have switched to it.
 and bisect any version / commit of TypeScript. It's useful for finding which PR
 broke (or fixed) something, without figuring out how to build TypeScript.
 
-## pyright-action
-
-[pyright-action](https://github.com/jakebailey/pyright-action) is a GitHub
-Action for pyright (a type checker for Python), allowing for fast execution
-through caching, plus PR comments for errors.
-
 ## pprof-it
 
 [pprof-it](https://www.npmjs.com/package/pprof-it) is wrapper for pprof,
@@ -45,3 +39,9 @@ that can be run at the CLI, I'm using this.
 another" playground for esbuild. Like the TypeScript playground, it supports
 links and auto-compiles as you type. It's very basic right now, but whenever I
 get some free time (hah) I'll expand it.
+
+## pyright-action
+
+[pyright-action](https://github.com/jakebailey/pyright-action) is a GitHub
+Action for pyright (a type checker for Python), allowing for fast execution
+through caching, plus PR comments for errors.
