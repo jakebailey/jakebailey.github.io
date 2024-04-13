@@ -1,0 +1,75 @@
+==================================================================
+https://keybase.io/jakebailey
+--------------------------------------------------------------------
+
+I hereby claim:
+
+  * I am an admin of https://jakebailey.dev
+  * I am jakebailey (https://keybase.io/jakebailey) on keybase.
+  * I have a public key with fingerprint C714 C873 7BC4 FD06 99DD  433E 510A B14C E1F9 95C4
+
+To do so, I am signing this object:
+
+{
+  "body": {
+    "key": {
+      "eldest_kid": "01202c496245f93df5dd36f8342b7c52d6b1d46bfc4df6762de2f249a9428c14ef8e0a",
+      "fingerprint": "c714c8737bc4fd0699dd433e510ab14ce1f995c4",
+      "host": "keybase.io",
+      "key_id": "510ab14ce1f995c4",
+      "kid": "010117063cc81aad1d112dfdce27d8266cf40e4880d6edc0b14ea6d28b6a5b2b24460a",
+      "uid": "b1d93c7a5fa1e52398036acfc6951c19",
+      "username": "jakebailey"
+    },
+    "service": {
+      "hostname": "jakebailey.dev",
+      "protocol": "https:"
+    },
+    "type": "web_service_binding",
+    "version": 1
+  },
+  "ctime": 1713041903,
+  "expire_in": 157680000,
+  "prev": "2ed0085bea87a68b6bcfc477f17410c0874befc31921aad79572ac0b2954aec5",
+  "seqno": 35,
+  "tag": "signature"
+}
+
+which yields the signature:
+
+-----BEGIN PGP MESSAGE-----
+Version: Keybase OpenPGP v2.1.13
+Comment: https://keybase.io/crypto
+
+yMNwAnicbVJ/TFVVHH/8jkeF/FBAc8nVFjKC+/vHG5SG0iRcZRlhzNe995wL973n
+u4/3LryHimzmawwBIURFcKktW5ojqLEicPHEZxs0xBwRbAokm5KT0UAEErqX5V91
+/jk753w+n+/n89npeS7IYAx4x9iaMzbf0BPQ291cbJDWTk8dQAQFlCKmA4gVrmzQ
+BqBLNVtlgJgQFMNRXCQ5GicpiSOARAFA0BJLkLjAiBQOaAEDJC1IIgkkmqFxAHEJ
+JzmeI3FWxEgosRDlkRREku0F0OlwynZVkxUZjBRZhmAEkZQASnMcACRBQApDeUF7
+gpjEcZRIasRCxaUzNHMC74KpsqLdaQfzir3/wT/1jWIYg9KEKLIYzwMMYBgOJCBC
+nAEsTtOiRKKQZFkU0BCIqCYCeRrgrEDzlIALOEnSK76LV+S0kBwhMjwl8RikcIJj
+UYLmRUmkOQoTMU4HuqDTzu+DGtrCW6HAyzatz7IURLsvkUWoV6tn+Q8mFcASje9w
+KqoiKjbtrVBVHS6TzlVLHTrYDQXzvzJmQbYDrUuNUQKdLlmxIyZMQ4qqrOtiDEag
+JMahRAoCPQ7ZCc2yjqAYmkW1pc/RxpkQHAIUZSkB8izD01psQUtDMoyEMSSGiijL
+kAKURALjcL0/hqMYnNd6wjmK5KFIIXqwIruCmAhK88kXaJouucDOq8VOiJT5uvOD
+DQFGQ2hIoP7JDMbwVU+/Xvv6VYavraWNwoT/Ys6D+JMfXPi562zukn13SMptz0L0
+prZbS2FFw2q3L2tyMN0/3tabX/dxwu/qnODPyT146s2K7Vkjs9W2/MjMyoXJjihH
+45neUUvO1dbcypm4Nadrjr+Q+km2MSE57aOqphv1ho2P6qpfeWLZfCS4bE1/3etf
+nUhPql84WCFscYTfVoi+/u3N3kXbb9fvXPllsepHr//t0JPzERMLxaaZrUz+3rzj
+Q4BLP+9iGwo8M5+3x8Y/PxSydX5q3Lhv+MQbCV27Nyy5D++sVoy1hscjf5mzYyKj
+LI88HWPzyf5PvS1tgyVBi+89+HBPU2iN4t9gl88OR6yNDbx79F5I3mhsw7MB97nO
+q8u168IypqNMtQNBNdtK2K5DP1mm2ssvVDT4v71/+PyWY+cSL9Z9oYxlLiTv4B+W
+77W+iGy7lNgUt46ozPJ2t/4xPd1I3XTbr3y20f3uy+6Mc19GLb51bXpuNjkt7v02
+b6P1jK/vcnT07N1NMXP93htpkd8c3fVD4ZDBHN+VPYgjc3E1HUN/ujq9Fg8RNrzr
+SEzm45ZLfZ7vk24ym+n9Nl+D2m66FzZ5qvmZjsAMWBUc0hMgm2dm/95jUCavJ/qO
+jeYn3Zqqjyt8bYn9dXngofulzv2vjj9ZWr4csbp8ffEOMu/QlK+0saVopHT16Tud
+2eXjO8NHsiauWb8bH/gHn5DL0Q==
+=PpZo
+-----END PGP MESSAGE-----
+
+And finally, I am proving ownership of this host by posting or
+appending to this document.
+
+View my publicly-auditable identity here: https://keybase.io/jakebailey
+
+==================================================================
