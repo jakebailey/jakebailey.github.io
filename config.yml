@@ -23,10 +23,6 @@ params:
       url: 'https://bsky.app/profile/jakebailey.dev'
     - name: mastodon
       url: 'https://fosstodon.org/@jakebailey'
-    - name: twitter
-      url: 'https://twitter.com/andhaveaniceday'
-    - name: reddit
-      url: 'https://www.reddit.com/user/Bake_Jailey'
     - name: ycombinator
       url: 'https://news.ycombinator.com/user?id=jakebailey'
     - name: linkedin
