@@ -25,7 +25,7 @@ defaults:
 
 env:
   # renovate: datasource=go depName=github.com/gohugoio/hugo versioning=node
-  HUGO_VERSION: '0.138.0'
+  HUGO_VERSION: '0.145.0'
 
 jobs:
   build:
