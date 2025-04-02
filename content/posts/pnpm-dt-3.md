@@ -104,9 +104,10 @@ packages with the same name. Understandable\![^package-naming] But, we need to
 do it somehow.
 
 [^package-naming]: Honestly, this is a little unsatisfying. If you think about
-it, all package managers already need to be able to handle multiple versions of
-the same package when they're sourced from the npm registry. Theoretically, they
-could support multiple versions of workspace packages, but alas, no.
+    it, all package managers already need to be able to handle multiple versions
+    of the same package when they're sourced from the npm registry.
+    Theoretically, they could support multiple versions of workspace packages,
+    but alas, no.
 
 With `pnpm`, this "just works". Internally within `pnpm`, workspace packages are
 identified by their paths, so there's no conflict. Then, when `pnpm` goes to
@@ -302,7 +303,7 @@ technically an improvement over the previous setup, which didn't allow
 dependencies anyhow.
 
 [^self-link]: Technically, `link:.` would also work, but for "reasons",
-`workspace:.` has better performance.
+    `workspace:.` has better performance.
 
 ### `owners`
 
@@ -345,11 +346,11 @@ This info is used to inform various checks and is carried into the published
 package. In the new layout, this information is represented in JSON.[^nonNpm]
 
 [^nonNpm]: There's still some clarity needed about what these fields are
-supposed to represent. There are quite a few packages (~200) that don't have
-this field set but aren't on `npm` either. We'll get it sorted; my hope is that
-this field becomes defined specifically as "this package is not on npm, do not
-look at npm for it, but if you do find an npm package with this name, then that
-may be a problem so CI should fail until we triage the problem".
+    supposed to represent. There are quite a few packages (~200) that don't have
+    this field set but aren't on `npm` either. We'll get it sorted; my hope is
+    that this field becomes defined specifically as "this package is not on npm,
+    do not look at npm for it, but if you do find an npm package with this name,
+    then that may be a problem so CI should fail until we triage the problem".
 
 ## Installing dependencies
 
@@ -538,8 +539,8 @@ There are two ways forward:
   it should be straightforward to detect.
 
 [^git-for-windows]: It's absolutely possible that my take is the wrong one here;
-I know Go recently recently changed things to treat these special reparse points
-as some sort of "irregular" file. Honestly, I have no clue.
+    I know Go recently recently changed things to treat these special reparse
+    points as some sort of "irregular" file. Honestly, I have no clue.
 
 For now, DefinitelyTyped has included a script Windows users can run to clean up
 `node_modules`; `pnpm run clean-node-modules` will find and delete all

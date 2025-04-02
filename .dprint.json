@@ -14,14 +14,9 @@
         "textWrap": "always",
         "lineWidth": 80
     },
-    "prettier": {
-        "associations": [
-            "**/*.{yaml,yml}"
-        ],
-        "yml.tabWidth": 2,
-        "yaml.tabWidth": 2,
-        "yml.singleQuote": true,
-        "yaml.singleQuote": true
+    "yaml": {
+        "indentWidth": 2,
+        "quotes": "preferSingle"
     },
     "excludes": [
         "**/node_modules",
@@ -36,9 +31,9 @@
         "**/hugo_stats.json"
     ],
     "plugins": [
-        "https://plugins.dprint.dev/typescript-0.88.1.wasm",
-        "https://plugins.dprint.dev/json-0.17.4.wasm",
-        "https://plugins.dprint.dev/markdown-0.16.2.wasm",
-        "https://plugins.dprint.dev/prettier-0.27.0.json@3557a62b4507c55a47d8cde0683195b14d13c41dda66d0f0b0e111aed107e2fe"
+        "https://plugins.dprint.dev/typescript-0.94.0.wasm",
+        "https://plugins.dprint.dev/json-0.20.0.wasm",
+        "https://plugins.dprint.dev/markdown-0.18.0.wasm",
+        "https://plugins.dprint.dev/g-plane/pretty_yaml-v0.5.0.wasm"
     ]
 }

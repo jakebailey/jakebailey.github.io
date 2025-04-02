@@ -28,7 +28,7 @@ project, you'll get the types that the authors wrote in their code. This is the
 easy path; the hard work is done!
 
 [^declaration true]: If the author set `"declaration": true` and published them,
-anyway.
+    anyway.
 
 But what if the package _wasn't_ written in TypeScript? In this situation, it
 may be the case that the author hand-wrote types for their package, but most of

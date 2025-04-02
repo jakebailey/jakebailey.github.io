@@ -28,8 +28,9 @@ TypeScript.[^go] As such, when I have a performance problem, the tool I like to
 use is [pprof](https://github.com/google/pprof).
 
 [^go]: Well, this used to be true, but might not be anymore. Definitely not if
-you `git blame` the TypeScript repo and forget to use `.git-blame-ignore-revs`!
-[Thanks, modules](https://devblogs.microsoft.com/typescript/typescripts-migration-to-modules/).
+    you `git blame` the TypeScript repo and forget to use
+    `.git-blame-ignore-revs`!
+    [Thanks, modules](https://devblogs.microsoft.com/typescript/typescripts-migration-to-modules/).
 
 More commonly, this tool is used when profiling Go, C, C++ code. And I like this
 tool! Lucky for me, there is
@@ -38,8 +39,9 @@ with Node.[^datadog] The API is pretty straightforward; you can start and stop
 both CPU and heap profiles, and write them to disk.
 
 [^datadog]: Okay, this is a fork of
-[the original](https://www.npmjs.com/package/pprof) released by Google, but that
-one hasn't been updated in years, and DataDog's fork includes prebuilt binaries.
+    [the original](https://www.npmjs.com/package/pprof) released by Google, but
+    that one hasn't been updated in years, and DataDog's fork includes prebuilt
+    binaries.
 
 Unfortunately, that's a little annoying, because effectively 100% of the time,
 I'm profiling a CLI application or someone else's project where I don't really
@@ -100,9 +102,9 @@ counted as one node named "(anonymous)".[^anonymous] So, let's flip into the
 flame view.
 
 [^anonymous]: This is something I've been meaning to dig into, but it turns out
-to be a problem that also happens to the more typical `.cpuprofile` files Node
-performance nerds may already be familiar with, so I just haven't prioritized
-looking into it.
+    to be a problem that also happens to the more typical `.cpuprofile` files
+    Node performance nerds may already be familiar with, so I just haven't
+    prioritized looking into it.
 
 ![A pprof profile of the original test case; two large blocks. The overall execution takes about 100 seconds.](profile1.png#center)
 
