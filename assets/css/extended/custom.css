@@ -41,7 +41,7 @@
     --safe-blue: #1177cc;
 }
 
-body:has(main):has(.post-content) {
+body:has(.post-single) {
     --main-width: var(--nav-width);
 }
 
