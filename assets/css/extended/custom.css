@@ -39,6 +39,7 @@
 :root {
     --safe-magenta: #dd2277;
     --safe-blue: #1177cc;
+    --main-width: var(--nav-width);
 }
 
 .post-content > details {
