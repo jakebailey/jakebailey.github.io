@@ -8,7 +8,8 @@ tags:
   - go-analysis
   - typescript-go
 cover:
-  image: "./ogimage.png"
+  hidden: true
+  image: "ogimage.png"
   relative: true
 ---
 
