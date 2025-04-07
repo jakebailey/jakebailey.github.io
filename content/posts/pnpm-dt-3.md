@@ -3,6 +3,8 @@ title: "DefinitelyTyped is a monorepo!"
 date: "2023-10-17T11:22:43-07:00"
 summary: "Yes, it is! But for real this time!"
 description: "Yes, it is! But for real this time!"
+series:
+  - pnpm-dt
 tags:
   - TypeScript
   - DefinitelyTyped

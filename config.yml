@@ -3,6 +3,11 @@ languageCode: en-us
 title: Jake Bailey
 theme: github.com/adityatelange/hugo-PaperMod
 
+taxonomies:
+  category: categories
+  tag: tags
+  series: series
+
 params:
   env: production
   description: >
