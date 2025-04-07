@@ -13,6 +13,7 @@
         "customlint",
         "dependants",
         "dtslint",
+        "fediverse",
         "flamegraph",
         "gensync",
         "giscus",

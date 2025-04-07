@@ -30,6 +30,9 @@ params:
     - name: rss
       url: 'index.xml'
 
+  social:
+    fediverse_creator: '@jakebailey@fosstodon.org'
+
   showReadingTime: true
   showPostNavLinks: true
   showCodeCopyButtons: true
