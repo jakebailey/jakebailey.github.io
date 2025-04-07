@@ -166,6 +166,7 @@ Consider the following code:
 ```go
 func f() int {
     value := 1
+    println(value)
     if condition {
         value := 2
         // ...
@@ -179,24 +180,26 @@ This code probably has a shadowing bug. The `shadow` pass determines this by
 checking every variable to see if there's another variable it could shadow (same
 name in a parent scope, with the same type), then checks to see if that
 potentially shadowed variable is used "after" the inner declaration, where
-"after" is a position check. This avoids false positives like:
+"after" is a position check. This avoids false positives like when we don't use
+the `outer` value later:
 
 ```go
 func f() int {
     value := 1
+    println(value)
     if condition {
         value := 2
         // ...
         println(value)
     }
+    // no use of "value" here!
+    // ...
+    return someOtherValue
 }
 ```
 
-This is unlikely to be a bug, since `value` is never touched past the inner
-scope.
-
-This is pretty good and does catch many bugs, but it's not perfect. Take for
-example:
+This method is pretty good and does catch many bugs, but it's not perfect. Take
+for example:
 
 ```go
 func f() int {
