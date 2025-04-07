@@ -7,6 +7,9 @@ tags:
   - go
   - go-analysis
   - typescript-go
+cover:
+  image: "./ogimage.png"
+  relative: true
 ---
 
 If you hadn't already heard, we're
