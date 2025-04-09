@@ -39,6 +39,7 @@
 :root {
     --safe-magenta: #dd2277;
     --safe-blue: #1177cc;
+    --code-block-bg: #f5f5f5;
 }
 
 body:has(.post-single) {
@@ -51,4 +52,8 @@ body:has(.post-single) {
 
 div.highlight {
     margin-bottom: var(--content-gap) !important;
+}
+
+.post-content pre code:not(.dark *) {
+    color: unset !important;
 }

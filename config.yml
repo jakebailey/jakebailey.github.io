@@ -75,3 +75,7 @@ outputs:
     - HTML
     - RSS
     - JSON
+
+markup:
+  highlight:
+    noClasses: false
