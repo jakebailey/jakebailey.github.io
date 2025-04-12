@@ -13,6 +13,10 @@ tags:
   - monorepo
   - pprof
   - pprof-it
+cover:
+  hidden: true
+  image: "profile1.png"
+  relative: true
 ---
 
 ## Background
