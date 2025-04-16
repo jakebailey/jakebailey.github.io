@@ -36,7 +36,7 @@ params:
       url: 'index.xml'
 
   social:
-    fediverse_creator: '@jakebailey@fosstodon.org'
+    fediverse_creator: '@jakebailey.dev@bsky.brid.gy'
 
   showReadingTime: true
   showPostNavLinks: true
