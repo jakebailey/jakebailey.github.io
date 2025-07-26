@@ -54,7 +54,7 @@ div.highlight {
 }
 
 .post-content pre code:not(.dark *) {
-    color: unset !important;
+    color: var(--content) !important;
 }
 
 /* Make the theme actually gray */
