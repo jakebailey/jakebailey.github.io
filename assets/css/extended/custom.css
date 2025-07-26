@@ -53,8 +53,8 @@ div.highlight {
     margin-bottom: var(--content-gap) !important;
 }
 
-.post-content pre code:not(.dark *) {
-    color: var(--content) !important;
+.post-content pre code {
+    color: var(--primary) !important;
 }
 
 /* Make the theme actually gray */
