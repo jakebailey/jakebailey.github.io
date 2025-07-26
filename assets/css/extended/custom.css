@@ -82,3 +82,7 @@ div.highlight {
     --code-bg: rgb(56, 56, 56);
     --border: rgb(51, 51, 51);
 }
+
+@view-transition {
+    navigation: auto;
+}
