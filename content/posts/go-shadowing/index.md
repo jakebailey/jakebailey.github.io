@@ -500,14 +500,14 @@ code?
 
 ```go
 func f() int {
-	value := 1
+    value := 1
 
-	callIt(func() {
-		value := 2
-		println(value)
-	})
+    callIt(func() {
+        value := 2
+        println(value)
+    })
 
-	return value
+    return value
 }
 ```
 
