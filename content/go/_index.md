@@ -1,5 +1,5 @@
 ---
-_build:
+build:
   render: never
   list: never
 cascade:
@@ -10,6 +10,6 @@ cascade:
   showToc: false
   showWordCount: false
   searchHidden: true
-  _build:
+  build:
     list: never
 ---

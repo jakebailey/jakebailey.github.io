@@ -83,6 +83,4 @@ div.highlight {
     --border: rgb(51, 51, 51);
 }
 
-@view-transition {
-    navigation: auto;
-}
+_build
