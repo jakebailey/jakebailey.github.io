@@ -4,6 +4,7 @@ layout: single
 showReadingTime: false
 showToc: false
 showWordCount: false
+comments: false
 ---
 
 {{< rawhtml >}}
