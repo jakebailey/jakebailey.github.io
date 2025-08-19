@@ -311,9 +311,10 @@ comments: false
 
     // Calculate improvements (assuming lower time is better)
     const improvement = baseline - newtime;
-    const fasterPercent = ((improvement / baseline) * 100).toFixed(2);
-    const fasterTimes = (baseline / newtime).toFixed(2);
-    const timeSavedPercent = ((improvement / baseline) * 100).toFixed(2);
+    const difference = Math.abs(improvement);
+    const fasterPercent = (difference / newtime * 100).toFixed(2);
+    const fasterTimes = (difference / newtime + 1).toFixed(2);
+    const timeSavedPercent = (difference / baseline * 100).toFixed(2);
 
     // Update display
     const fasterPercentEl = document.getElementById('faster-percent');
