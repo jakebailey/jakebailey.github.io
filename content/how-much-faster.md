@@ -24,6 +24,12 @@ comments: false
     padding: 1rem;
   }
 
+  @media (max-width: 640px) {
+    .calculator-container {
+      padding: 0.5rem;
+    }
+  }
+
   .calculator-form {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -57,6 +63,13 @@ comments: false
     background: var(--entry);
     color: var(--primary);
     transition: border-color 0.2s ease;
+  }
+
+  @media (max-width: 640px) {
+    .input-group input {
+      padding: 1rem;
+      font-size: 1.1rem;
+    }
   }
 
   /* Hide number input spinners */
@@ -99,10 +112,11 @@ comments: false
 
   .result-item {
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
     align-items: center;
-    padding: 0.5rem 0;
+    padding: 1rem 0;
     border-bottom: 1px solid var(--border);
+    text-align: center;
   }
 
   .result-item:last-child {
@@ -111,11 +125,13 @@ comments: false
 
   .result-label {
     color: var(--content);
+    margin-bottom: 0.5rem;
+    font-size: 0.9rem;
   }
 
   .result-value {
     font-weight: 600;
-    font-size: 1.1rem;
+    font-size: 1.3rem;
     color: var(--primary);
   }
 
@@ -140,6 +156,8 @@ comments: false
     cursor: pointer;
     transition: all 0.2s ease;
     margin-top: 1rem;
+    width: 100%;
+    justify-content: center;
   }
 
   .copy-button:hover {
