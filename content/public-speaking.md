@@ -7,10 +7,12 @@ showToc: false
 showWordCount: false
 ---
 
-Here's all of my public speaking stuff (at least what's out there on the
-internet).
+Here's all of my public speaking stuff, or at least what's out there on the
+internet.
 
-## Why and How We Ported TypeScript to Go -- SquiggleConf 2025, September 18, 2025
+## Why and How We Ported TypeScript to Go
+
+### SquiggleConf 2025, September 18, 2025
 
 {{< collapse summary="Abstract" >}}
 
@@ -35,7 +37,9 @@ tests, and how this will affect you!
 
 Coming soon!
 
-## Porting the TypeScript Compiler to Go for a 10x Speedup -- GopherCon 2025, August 27, 2025
+## Porting the TypeScript Compiler to Go for a 10x Speedup
+
+### GopherCon 2025, August 27, 2025
 
 {{< collapse summary="Abstract" >}}
 
@@ -51,16 +55,19 @@ our previous implementation.
 
 {{< /collapse >}}
 
-- No link to the recording yet.
-- [Link to slides](https://jakebailey.dev/talk-gophercon-2025)
-- [Link to source code](https://github.com/jakebailey/talk-gophercon-2025)
+- Recording coming soon!
+- [Slides](https://jakebailey.dev/talk-gophercon-2025)
+- [Source code](https://github.com/jakebailey/talk-gophercon-2025)
 
-## TypeScript with Jake Bailey -- Software Engineering Daily, July 15, 2025
+## TypeScript with Jake Bailey
 
-- [Link to podcast](https://softwareengineeringdaily.com/2025/07/15/typescript-with-jake-bailey/),
-  posted July 15
+### Software Engineering Daily, July 15, 2025
 
-## Migrating TypeScript to Modules: The Fine Details -- TypeScript Congress, September 21, 2023
+- [Recording](https://softwareengineeringdaily.com/2025/07/15/typescript-with-jake-bailey/)
+
+## Migrating TypeScript to Modules: The Fine Details
+
+### TypeScript Congress, September 21, 2023
 
 {{< collapse summary="Abstract" >}}
 
@@ -72,6 +79,6 @@ the migration went, and what's next.
 
 {{< /collapse >}}
 
-- [Link to recording](https://gitnation.com/contents/migrating-typescript-to-modules-the-fine-details)
-- [Link to slides](https://jakebailey.dev/talk-tscongress-2023)
-- [Link to source code](https://github.com/jakebailey/talk-tscongress-2023)
+- [Recording](https://gitnation.com/contents/migrating-typescript-to-modules-the-fine-details)
+- [Slides](https://jakebailey.dev/talk-tscongress-2023)
+- [Source code](https://github.com/jakebailey/talk-tscongress-2023)
