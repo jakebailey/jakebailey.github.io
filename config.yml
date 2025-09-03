@@ -12,13 +12,13 @@ params:
   env: production
   description: >
     Hi, I'm Jake.
-    I'm a Senior Software Engineer at Microsoft, working on TypeScript.
+    I'm a Principal Software Engineer at Microsoft, working on TypeScript.
     Here's where I put random stuff.
 
   homeInfoParams:
     title: "Hi, I'm Jake."
     content: >
-      I'm a Senior Software Engineer at Microsoft, working on TypeScript.
+      I'm a Principal Software Engineer at Microsoft, working on TypeScript.
       Here's where I put random stuff.
 
   socialIcons:
