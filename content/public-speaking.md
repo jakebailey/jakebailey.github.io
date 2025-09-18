@@ -35,7 +35,9 @@ tests, and how this will affect you!
 
 {{< /collapse >}}
 
-Coming soon!
+- Recording coming soon!
+- [Slides](https://jakebailey.dev/talk-squiggleconf-2025)
+- [Source code](https://github.com/jakebailey/talk-squiggleconf-2025)
 
 ## Porting the TypeScript Compiler to Go for a 10x Speedup
 
