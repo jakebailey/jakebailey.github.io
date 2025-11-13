@@ -10,6 +10,12 @@ showWordCount: false
 Here's all of my public speaking stuff, or at least what's out there on the
 internet.
 
+## What's Coming in TypeScript 6/7
+
+### `typescript.fm`, November 11, 2025
+
+- [Recording](https://typescript.fm/bonus43)
+
 ## Why and How We Ported TypeScript to Go
 
 ### SquiggleConf 2025, September 18, 2025
