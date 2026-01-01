@@ -69,6 +69,38 @@ jobs:
           retention-days: 1
           if-no-files-found: error
 
+  diff:
+    if: github.event_name == 'pull_request' && (github.head_ref == 'renovate/github.com-gohugoio-hugo-0.x' || github.head_ref == 'renovate/github.com-adityatelange-hugo-papermod-digest')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
+        with:
+          path: pr
+
+      - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
+        with:
+          path: base
+          ref: ${{ github.base_ref }}
+
+      - uses: peaceiris/actions-hugo@75d2e84710de30f6ff7268e08f310b60ef14033f # v3.0.0
+        with:
+          hugo-version: ${{ env.HUGO_VERSION }}
+          extended: true
+
+      - name: Build with PR changes
+        run: hugo
+        working-directory: ./pr
+
+      - name: Build at base
+        run: hugo
+        working-directory: ./base
+
+      - name: Generate diff
+        run: |
+          echo '```diff' >> "$GITHUB_STEP_SUMMARY"
+          diff -r base/public pr/public >> "$GITHUB_STEP_SUMMARY" || true
+          echo '```' >> "$GITHUB_STEP_SUMMARY"
+
   deploy:
     if: github.event_name != 'pull_request'
     environment:
