@@ -45,11 +45,29 @@ jobs:
         uses: actions/configure-pages@983d7736d9b0ae728b81ab479565c72886d7745b # v5.0.0
         if: github.event_name != 'pull_request'
 
+      # Manual tarball creation to work around https://github.com/actions/upload-pages-artifact/issues/129
+      # upload-pages-artifact v4 excludes all dotfiles, breaking .well-known support
+      # Based on https://github.com/actions/upload-pages-artifact/blob/main/action.yml
+      # but without the --exclude=".[^/]*" that removes dotfiles
+      - name: Archive artifact
+        if: github.event_name != 'pull_request'
+        run: |
+          tar \
+            --dereference --hard-dereference \
+            --directory ./public \
+            -cvf "$RUNNER_TEMP/artifact.tar" \
+            --exclude=.git \
+            --exclude=.github \
+            .
+
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@56afc609e74202658d3ffba0e8f6dda462b719fa # v3.0.1
+        uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6.0.0
         if: github.event_name != 'pull_request'
         with:
-          path: ./public
+          name: github-pages
+          path: ${{ runner.temp }}/artifact.tar
+          retention-days: 1
+          if-no-files-found: error
 
   deploy:
     if: github.event_name != 'pull_request'
