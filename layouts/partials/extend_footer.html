@@ -1,28 +1,21 @@
 <script>
-    // extend_footer is run _before_ PaperMod's code, so wait for full load
-    // and then replace the toggle button with a copy that uses view transitions.
-    window.addEventListener("load", () => {
-        const old = document.getElementById("theme-toggle");
-        const clone = old.cloneNode(true);
-        old.parentNode.replaceChild(clone, old);
-
-        clone.addEventListener("click", () => {
-            const toggle = () => {
-                if (document.body.className.includes("dark")) {
-                    document.body.classList.remove('dark');
-                    localStorage.setItem("pref-theme", 'light');
-                } else {
-                    document.body.classList.add('dark');
-                    localStorage.setItem("pref-theme", 'dark');
-                }
-            };
-
-            if (document.startViewTransition) {
-                document.startViewTransition(toggle);
+    document.getElementById("theme-toggle").addEventListener("click", (e) => {
+        e.stopImmediatePropagation();
+        const html = document.documentElement;
+        const toggle = () => {
+            if (html.dataset.theme === "dark") {
+                html.dataset.theme = "light";
+                localStorage.setItem("pref-theme", "light");
             } else {
-                toggle();
+                html.dataset.theme = "dark";
+                localStorage.setItem("pref-theme", "dark");
             }
-        });
+        };
+        if (document.startViewTransition) {
+            document.startViewTransition(toggle);
+        } else {
+            toggle();
+        }
     });
 </script>
 <script>
