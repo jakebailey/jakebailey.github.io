@@ -3,16 +3,22 @@
     "extends": [
         "config:recommended",
         "helpers:pinGitHubActionDigests",
-        "regexManagers:githubActionsVersions"
+        "customManagers:githubActionsVersions"
     ],
     "packageRules": [
         {
-            "matchManagers": ["gomod"],
-            "matchDepTypes": ["indirect"],
+            "matchManagers": [
+                "gomod"
+            ],
+            "matchDepTypes": [
+                "indirect"
+            ],
             "enabled": true
         },
         {
-            "matchManagers": ["github-actions"],
+            "matchManagers": [
+                "github-actions"
+            ],
             "groupName": "github actions",
             "groupSlug": "github-actions"
         }
