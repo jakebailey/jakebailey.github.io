@@ -63,7 +63,7 @@ our previous implementation.
 
 {{< /collapse >}}
 
-- Recording coming soon!
+- [Recording](https://www.youtube.com/watch?v=PZm_YbE3fcA)
 - [Slides](https://jakebailey.dev/talk-gophercon-2025)
 - [Source code](https://github.com/jakebailey/talk-gophercon-2025)
 
