@@ -41,7 +41,7 @@ tests, and how this will affect you!
 
 {{< /collapse >}}
 
-- Recording coming soon!
+- [Recording](https://www.youtube.com/live/C_ePbVZqXrw?si=4JSCdLPi8sd2SLgK&t=6820)
 - [Slides](https://jakebailey.dev/talk-squiggleconf-2025)
 - [Source code](https://github.com/jakebailey/talk-squiggleconf-2025)
 
