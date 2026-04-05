@@ -20,6 +20,7 @@ params:
     content: >
       I'm a Principal Software Engineer at Microsoft, working on TypeScript.
       Here's where I put random stuff.
+    imageUrl: 'images/profile.jpg'
 
   socialIcons:
     - name: github
