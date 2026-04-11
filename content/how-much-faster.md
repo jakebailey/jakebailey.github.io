@@ -329,10 +329,6 @@ comments: false
 
     // Calculate improvements (assuming lower time is better)
     const improvement = baseline - newtime;
-    const difference = Math.abs(improvement);
-    const fasterPercent = (difference / newtime * 100).toFixed(2);
-    const fasterTimes = (difference / newtime + 1).toFixed(2);
-    const timeSavedPercent = (difference / baseline * 100).toFixed(2);
 
     // Update display
     const fasterPercentEl = document.getElementById('faster-percent');
@@ -340,18 +336,24 @@ comments: false
     const lessTimeEl = document.getElementById('less-time');
 
     if (improvement > 0) {
-      fasterPercentEl.textContent = `${fasterPercent}% faster`;
+      const pct = ((baseline - newtime) / newtime * 100).toFixed(2);
+      const times = (baseline / newtime).toFixed(2);
+      const saved = ((baseline - newtime) / baseline * 100).toFixed(2);
+      fasterPercentEl.textContent = `${pct}% faster`;
       fasterPercentEl.className = 'result-value positive';
-      fasterTimesEl.textContent = `${fasterTimes}× faster`;
+      fasterTimesEl.textContent = `${times}× faster`;
       fasterTimesEl.className = 'result-value positive';
-      lessTimeEl.textContent = `${timeSavedPercent}% less time`;
+      lessTimeEl.textContent = `${saved}% less time`;
       lessTimeEl.className = 'result-value positive';
     } else if (improvement < 0) {
-      fasterPercentEl.textContent = `${Math.abs(fasterPercent)}% slower`;
+      const pct = ((newtime - baseline) / baseline * 100).toFixed(2);
+      const times = (newtime / baseline).toFixed(2);
+      const extra = ((newtime - baseline) / baseline * 100).toFixed(2);
+      fasterPercentEl.textContent = `${pct}% slower`;
       fasterPercentEl.className = 'result-value negative';
-      fasterTimesEl.textContent = `${fasterTimes}× slower`;
+      fasterTimesEl.textContent = `${times}× slower`;
       fasterTimesEl.className = 'result-value negative';
-      lessTimeEl.textContent = `${Math.abs(timeSavedPercent)}% more time`;
+      lessTimeEl.textContent = `${extra}% more time`;
       lessTimeEl.className = 'result-value negative';
     } else {
       fasterPercentEl.textContent = 'No change';
