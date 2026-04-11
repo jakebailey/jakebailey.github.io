@@ -213,7 +213,7 @@ comments: false
 <div id="results" class="results-container">
     <h3>Results</h3>
     <div class="result-item">
-      <span class="result-label">Performance improvement:</span>
+      <span id="faster-percent-label" class="result-label">Performance improvement:</span>
       <span id="faster-percent" class="result-value">—</span>
     </div>
     <div class="result-item">
@@ -221,7 +221,7 @@ comments: false
       <span id="faster-times" class="result-value">—</span>
     </div>
     <div class="result-item">
-      <span class="result-label">Time saved:</span>
+      <span id="less-time-label" class="result-label">Time saved:</span>
       <span id="less-time" class="result-value">—</span>
     </div>
     <button id="copy-button" class="copy-button" onclick="copyLink()">
@@ -329,37 +329,46 @@ comments: false
 
     // Calculate improvements (assuming lower time is better)
     const improvement = baseline - newtime;
+    const fmt = (n) => parseFloat(n.toFixed(2));
 
     // Update display
     const fasterPercentEl = document.getElementById('faster-percent');
+    const fasterPercentLabelEl = document.getElementById('faster-percent-label');
     const fasterTimesEl = document.getElementById('faster-times');
     const lessTimeEl = document.getElementById('less-time');
+    const lessTimeLabelEl = document.getElementById('less-time-label');
 
     if (improvement > 0) {
-      const pct = ((baseline - newtime) / newtime * 100).toFixed(2);
-      const times = (baseline / newtime).toFixed(2);
-      const saved = ((baseline - newtime) / baseline * 100).toFixed(2);
+      const pct = fmt((baseline - newtime) / newtime * 100);
+      const times = fmt(baseline / newtime);
+      const saved = fmt((baseline - newtime) / baseline * 100);
+      fasterPercentLabelEl.textContent = 'Performance improvement:';
       fasterPercentEl.textContent = `${pct}% faster`;
       fasterPercentEl.className = 'result-value positive';
       fasterTimesEl.textContent = `${times}× faster`;
       fasterTimesEl.className = 'result-value positive';
+      lessTimeLabelEl.textContent = 'Time saved:';
       lessTimeEl.textContent = `${saved}% less time`;
       lessTimeEl.className = 'result-value positive';
     } else if (improvement < 0) {
-      const pct = ((newtime - baseline) / baseline * 100).toFixed(2);
-      const times = (newtime / baseline).toFixed(2);
-      const extra = ((newtime - baseline) / baseline * 100).toFixed(2);
+      const pct = fmt((newtime - baseline) / baseline * 100);
+      const times = fmt(newtime / baseline);
+      const extra = fmt((newtime - baseline) / baseline * 100);
+      fasterPercentLabelEl.textContent = 'Performance regression:';
       fasterPercentEl.textContent = `${pct}% slower`;
       fasterPercentEl.className = 'result-value negative';
       fasterTimesEl.textContent = `${times}× slower`;
       fasterTimesEl.className = 'result-value negative';
+      lessTimeLabelEl.textContent = 'Time added:';
       lessTimeEl.textContent = `${extra}% more time`;
       lessTimeEl.className = 'result-value negative';
     } else {
+      fasterPercentLabelEl.textContent = 'Performance improvement:';
       fasterPercentEl.textContent = 'No change';
       fasterPercentEl.className = 'result-value';
       fasterTimesEl.textContent = '1.00× (same)';
       fasterTimesEl.className = 'result-value';
+      lessTimeLabelEl.textContent = 'Time saved:';
       lessTimeEl.textContent = 'No time saved';
       lessTimeEl.className = 'result-value';
     }
