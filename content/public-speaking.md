@@ -10,6 +10,18 @@ showWordCount: false
 Here's all of my public speaking stuff, or at least what's out there on the
 internet.
 
+## 2026
+
+### Keynote - TS 7: How We Got There
+
+_[TSKaigi 2026](https://2026.tskaigi.org), May 22, 2026_
+
+### e18e & friends E003 - Jake Bailey
+
+_[e18e](https://e18e.dev), April 28, 2026_
+
+[Recording](https://www.youtube.com/watch?v=Nyt5YyOqoIY)
+
 ## 2025
 
 ### What's Coming in TypeScript 6/7
