@@ -10,15 +10,17 @@ showWordCount: false
 Here's all of my public speaking stuff, or at least what's out there on the
 internet.
 
-## What's Coming in TypeScript 6/7
+## 2025
 
-### `typescript.fm`, November 11, 2025
+### What's Coming in TypeScript 6/7
+
+_[typescript.fm](https://typescript.fm), November 11, 2025_
 
 [Recording](https://typescript.fm/bonus43)
 
-## Why and How We Ported TypeScript to Go
+### Why and How We Ported TypeScript to Go
 
-### SquiggleConf 2025, September 18, 2025
+_[SquiggleConf 2025](https://squiggleconf.com), September 18, 2025_
 
 {{< collapse summary="Abstract" >}}
 
@@ -45,9 +47,9 @@ tests, and how this will affect you!
 • [Slides](https://jakebailey.dev/talk-squiggleconf-2025) •
 [Source code](https://github.com/jakebailey/talk-squiggleconf-2025)
 
-## Porting the TypeScript Compiler to Go for a 10x Speedup
+### Porting the TypeScript Compiler to Go for a 10x Speedup
 
-### GopherCon 2025, August 27, 2025
+_[GopherCon 2025](https://www.gophercon.com), August 27, 2025_
 
 {{< collapse summary="Abstract" >}}
 
@@ -67,15 +69,19 @@ our previous implementation.
 [Slides](https://jakebailey.dev/talk-gophercon-2025) •
 [Source code](https://github.com/jakebailey/talk-gophercon-2025)
 
-## TypeScript with Jake Bailey
+### TypeScript with Jake Bailey
 
-### Software Engineering Daily, July 15, 2025
+_[Software Engineering Daily](https://softwareengineeringdaily.com), July 15,
+2025_
 
 [Recording](https://softwareengineeringdaily.com/2025/07/15/typescript-with-jake-bailey/)
 
-## Migrating TypeScript to Modules: The Fine Details
+## 2023
 
-### TypeScript Congress, September 21, 2023
+### Migrating TypeScript to Modules: The Fine Details
+
+_[TypeScript Congress](https://gitnation.com/events/typescript-congress-2023),
+September 21, 2023_
 
 {{< collapse summary="Abstract" >}}
 
