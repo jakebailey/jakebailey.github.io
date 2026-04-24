@@ -14,7 +14,7 @@ internet.
 
 ### `typescript.fm`, November 11, 2025
 
-- [Recording](https://typescript.fm/bonus43)
+[Recording](https://typescript.fm/bonus43)
 
 ## Why and How We Ported TypeScript to Go
 
@@ -41,9 +41,9 @@ tests, and how this will affect you!
 
 {{< /collapse >}}
 
-- [Recording](https://www.youtube.com/live/C_ePbVZqXrw?si=4JSCdLPi8sd2SLgK&t=6820)
-- [Slides](https://jakebailey.dev/talk-squiggleconf-2025)
-- [Source code](https://github.com/jakebailey/talk-squiggleconf-2025)
+[Recording](https://www.youtube.com/live/C_ePbVZqXrw?si=4JSCdLPi8sd2SLgK&t=6820)
+• [Slides](https://jakebailey.dev/talk-squiggleconf-2025) •
+[Source code](https://github.com/jakebailey/talk-squiggleconf-2025)
 
 ## Porting the TypeScript Compiler to Go for a 10x Speedup
 
@@ -63,15 +63,15 @@ our previous implementation.
 
 {{< /collapse >}}
 
-- [Recording](https://www.youtube.com/watch?v=PZm_YbE3fcA)
-- [Slides](https://jakebailey.dev/talk-gophercon-2025)
-- [Source code](https://github.com/jakebailey/talk-gophercon-2025)
+[Recording](https://www.youtube.com/watch?v=PZm_YbE3fcA) •
+[Slides](https://jakebailey.dev/talk-gophercon-2025) •
+[Source code](https://github.com/jakebailey/talk-gophercon-2025)
 
 ## TypeScript with Jake Bailey
 
 ### Software Engineering Daily, July 15, 2025
 
-- [Recording](https://softwareengineeringdaily.com/2025/07/15/typescript-with-jake-bailey/)
+[Recording](https://softwareengineeringdaily.com/2025/07/15/typescript-with-jake-bailey/)
 
 ## Migrating TypeScript to Modules: The Fine Details
 
@@ -87,6 +87,6 @@ the migration went, and what's next.
 
 {{< /collapse >}}
 
-- [Recording](https://gitnation.com/contents/migrating-typescript-to-modules-the-fine-details)
-- [Slides](https://jakebailey.dev/talk-tscongress-2023)
-- [Source code](https://github.com/jakebailey/talk-tscongress-2023)
+[Recording](https://gitnation.com/contents/migrating-typescript-to-modules-the-fine-details)
+• [Slides](https://jakebailey.dev/talk-tscongress-2023) •
+[Source code](https://github.com/jakebailey/talk-tscongress-2023)
