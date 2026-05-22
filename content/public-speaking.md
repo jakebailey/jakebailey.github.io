@@ -12,9 +12,19 @@ internet.
 
 ## 2026
 
+### State of TypeScript 7: Beyond the Port
+
+_[GopherCon 2026](https://www.gophercon.com), August 5, 2026_
+
+Recording TBD • [Slides](https://jakebailey.dev/talk-gophercon-2026) •
+[Source code](https://github.com/jakebailey/talk-gophercon-2026)
+
 ### Keynote - TS 7: How We Got There
 
 _[TSKaigi 2026](https://2026.tskaigi.org), May 22, 2026_
+
+Recording TBD • [Slides](https://jakebailey.dev/talk-tskaigi-2026) •
+[Source code](https://github.com/jakebailey/talk-tskaigi-2026)
 
 ### e18e & friends E003 - Jake Bailey
 
