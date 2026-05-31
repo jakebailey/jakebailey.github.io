@@ -216,14 +216,17 @@ function writeGeneratedFiles(records: StandardSiteRecords): void {
 
 async function syncStandardSite(repo: StandardSiteRepository, action: "Prepared" | "Synced"): Promise<void> {
     const publication = buildPublication();
-    const publicationUri = await repo.upsertPublication(publication);
-    const records = buildRecordsForPublication(publication, publicationUri);
-    const { deletedCount } = await repo.syncDocumentRecords(records);
+    const publicationResult = await repo.upsertPublication(publication);
+    const records = buildRecordsForPublication(publication, publicationResult.uri);
+    const documentResult = await repo.syncDocumentRecords(records);
     writeGeneratedFiles(records);
 
     console.log(`${action} ${records.documents.length} Standard.site document records.`);
-    if (deletedCount > 0 || action === "Synced") {
-        console.log(`Deleted ${deletedCount} stale Standard.site document records.`);
+    if (action === "Synced") {
+        console.log(`Publication ${publicationResult.status}.`);
+        console.log(
+            `Documents: ${documentResult.createdCount} created, ${documentResult.updatedCount} updated, ${documentResult.skippedCount} unchanged, ${documentResult.deletedCount} deleted.`,
+        );
     }
     console.log(`Publication: ${records.publication.uri}`);
 }

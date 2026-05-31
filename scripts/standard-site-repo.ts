@@ -31,9 +31,16 @@ export type StandardSiteRecords = {
     };
     documents: DocumentSyncEntry[];
 };
+export type RecordWriteStatus = "created" | "updated" | "skipped";
+export type DocumentSyncResult = {
+    createdCount: number;
+    updatedCount: number;
+    skippedCount: number;
+    deletedCount: number;
+};
 export type StandardSiteRepository = {
-    upsertPublication(publication: StandardSitePublication): Promise<string>;
-    syncDocumentRecords(records: StandardSiteRecords): Promise<{ deletedCount: number; }>;
+    upsertPublication(publication: StandardSitePublication): Promise<{ uri: string; status: RecordWriteStatus; }>;
+    syncDocumentRecords(records: StandardSiteRecords): Promise<DocumentSyncResult>;
 };
 
 function parseTid(value: string) {
@@ -62,17 +69,55 @@ function rkeyFromUri(uri: string): string {
     return parseCanonicalResourceUri(uri).rkey;
 }
 
-export class DryRunStandardSiteRepo implements StandardSiteRepository {
-    async upsertPublication(): Promise<string> {
-        return `at://${ATPROTO_DID}/site.standard.publication/${this.#tid(0)}`;
+function arraysEqual<T>(left: readonly T[] | undefined, right: readonly T[] | undefined): boolean {
+    if (left === right) {
+        return true;
     }
 
-    async syncDocumentRecords(records: StandardSiteRecords): Promise<{ deletedCount: number; }> {
+    if (!left || !right || left.length !== right.length) {
+        return false;
+    }
+
+    return left.every((value, index) => value === right[index]);
+}
+
+function publicationRecordsEqual(left: PublicationRecord, right: PublicationRecord): boolean {
+    return left.$type === right.$type
+        && left.url === right.url
+        && left.name === right.name
+        && left.description === right.description
+        && left.preferences?.showInDiscover === right.preferences?.showInDiscover;
+}
+
+function documentRecordsEqual(left: DocumentRecord, right: DocumentRecord): boolean {
+    return left.$type === right.$type
+        && left.site === right.site
+        && left.path === right.path
+        && left.title === right.title
+        && left.publishedAt === right.publishedAt
+        && left.description === right.description
+        && arraysEqual(left.tags, right.tags);
+}
+
+export class DryRunStandardSiteRepo implements StandardSiteRepository {
+    async upsertPublication(): Promise<{ uri: string; status: RecordWriteStatus; }> {
+        return {
+            uri: `at://${ATPROTO_DID}/site.standard.publication/${this.#tid(0)}`,
+            status: "created",
+        };
+    }
+
+    async syncDocumentRecords(records: StandardSiteRecords): Promise<DocumentSyncResult> {
         for (const [index, document] of records.documents.entries()) {
             document.uri = `at://${ATPROTO_DID}/site.standard.document/${this.#tid(index + 1)}`;
         }
 
-        return { deletedCount: 0 };
+        return {
+            createdCount: records.documents.length,
+            updatedCount: 0,
+            skippedCount: 0,
+            deletedCount: 0,
+        };
     }
 
     #tid(index: number): string {
@@ -117,7 +162,9 @@ export class StandardSiteRepo implements StandardSiteRepository {
         return new StandardSiteRepo(new Client({ handler: session }));
     }
 
-    async upsertPublication(publication: StandardSitePublication): Promise<string> {
+    async upsertPublication(
+        publication: StandardSitePublication,
+    ): Promise<{ uri: string; status: RecordWriteStatus; }> {
         const existingPublication = (await this.#listRecords("site.standard.publication"))
             .flatMap((record) => {
                 const value = tryParseListedPublication(record.value);
@@ -130,6 +177,10 @@ export class StandardSiteRepo implements StandardSiteRepository {
             })
             .find((record) => withoutTrailingSlashes(record.value.url) === publication.url);
 
+        if (existingPublication && publicationRecordsEqual(existingPublication.value, publication.record)) {
+            return { uri: existingPublication.uri, status: "skipped" };
+        }
+
         const result = existingPublication
             ? await this.#putRecord(
                 "site.standard.publication",
@@ -138,10 +189,13 @@ export class StandardSiteRepo implements StandardSiteRepository {
             )
             : await this.#createRecord("site.standard.publication", publication.record);
 
-        return result.uri;
+        return {
+            uri: result.uri,
+            status: existingPublication ? "updated" : "created",
+        };
     }
 
-    async syncDocumentRecords(records: StandardSiteRecords): Promise<{ deletedCount: number; }> {
+    async syncDocumentRecords(records: StandardSiteRecords): Promise<DocumentSyncResult> {
         if (records.documents.length === 0) {
             throw new Error("Refusing to sync Standard.site documents because no local posts were found.");
         }
@@ -179,8 +233,20 @@ export class StandardSiteRepo implements StandardSiteRepository {
             }
         }
 
+        let createdCount = 0;
+        let updatedCount = 0;
+        let skippedCount = 0;
+
         for (const document of records.documents) {
             const existingDocument = existingDocumentsByPath.get(document.path);
+            if (existingDocument) {
+                document.uri = existingDocument.uri;
+                if (documentRecordsEqual(existingDocument.value, document.record)) {
+                    skippedCount++;
+                    continue;
+                }
+            }
+
             const result = existingDocument
                 ? await this.#putRecord(
                     "site.standard.document",
@@ -190,6 +256,11 @@ export class StandardSiteRepo implements StandardSiteRepository {
                 : await this.#createRecord("site.standard.document", document.record);
 
             document.uri = result.uri;
+            if (existingDocument) {
+                updatedCount++;
+            } else {
+                createdCount++;
+            }
         }
 
         const orphanedDocuments = managedExistingDocuments.filter(
@@ -203,7 +274,12 @@ export class StandardSiteRepo implements StandardSiteRepository {
             await this.#deleteRecord("site.standard.document", rkeyFromUri(document.uri));
         }
 
-        return { deletedCount: documentsToDelete.size };
+        return {
+            createdCount,
+            updatedCount,
+            skippedCount,
+            deletedCount: documentsToDelete.size,
+        };
     }
 
     async #createRecord(
