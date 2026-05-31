@@ -1,3 +1,12 @@
 {{ if .Params.RedirectUrl }}
 <meta http-equiv="refresh" content="0;url={{ .Params.RedirectUrl }}">
 {{ end }}
+
+{{ with .Site.Data.standard_site }}
+{{ with .publicationUri }}
+<link rel="site.standard.publication" href="{{ . | safeURL }}">
+{{ end }}
+{{ with index .documents $.RelPermalink }}
+<link rel="site.standard.document" href="{{ . | safeURL }}">
+{{ end }}
+{{ end }}

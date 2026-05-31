@@ -45,5 +45,16 @@
         "Woah",
         "ycombinator",
         "Zoltan"
+    ],
+    "cSpell.ignorePaths": [
+        "package-lock.json",
+        "node_modules",
+        "vscode-extension",
+        ".git/{info,lfs,logs,refs,objects}/**",
+        ".git/{index,*refs,*HEAD}",
+        ".vscode",
+        ".vscode-insiders",
+        ".github",
+        "scripts"
     ]
 }
