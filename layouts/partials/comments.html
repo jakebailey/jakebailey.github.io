@@ -2,20 +2,19 @@
     // Based on https://github.com/giscus/giscus/issues/336
     (() => {
         function handleTheme() {
-            const body = document.querySelector("body");
-            if (!body) throw new Error("no body");
-    
-            let theme = "transparent_dark";
+            const html = document.documentElement;
+
+            let theme;
             function updateTheme() {
-                const newTheme = [...body.classList].includes("dark") ? "transparent_dark" : "light";
+                const newTheme = html.dataset.theme === "dark" ? "transparent_dark" : "light";
                 if (newTheme === theme) return;
                 theme = newTheme;
                 sendGiscusTheme(theme);
             }
             updateTheme();
-    
+
             const observer = new MutationObserver(updateTheme);
-            observer.observe(body, { attributes: true });
+            observer.observe(html, { attributes: true, attributeFilter: ["data-theme"] });
         }
 
         function sendGiscusTheme(theme) {
