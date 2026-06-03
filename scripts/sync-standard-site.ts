@@ -1,11 +1,12 @@
 #!/usr/bin/env node
 
-import { type GenericUri, isGenericUri } from "@atcute/lexicons/syntax";
+import { type Cid, type GenericUri, isCid, isGenericUri } from "@atcute/lexicons/syntax";
 import * as v from "@badrap/valita";
 import { parse as parseCsv } from "csv-parse/sync";
 import matter from "gray-matter";
 import { execFileSync } from "node:child_process";
-import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
+import { createHash } from "node:crypto";
+import { mkdirSync, readFileSync, statSync, writeFileSync } from "node:fs";
 import path from "node:path";
 import { parseArgs } from "node:util";
 import { parse as parseYaml } from "yaml";
@@ -13,6 +14,7 @@ import {
     type DocumentRecord,
     type DocumentSyncEntry,
     DryRunStandardSiteRepo,
+    type PublicationIcon,
     type PublicationRecord,
     type StandardSitePublication,
     type StandardSiteRecords,
@@ -21,6 +23,7 @@ import {
 } from "./standard-site-repo.ts";
 
 const repoRoot = path.resolve(import.meta.dirname, "..");
+const base32Alphabet = "abcdefghijklmnopqrstuvwxyz234567";
 
 const urlSchema = v.string()
     .assert((value) => URL.canParse(value), "expected URL")
@@ -32,6 +35,42 @@ function toGenericUri(value: string): GenericUri {
     }
 
     return value;
+}
+
+function toBase32(bytes: Uint8Array): string {
+    let output = "";
+    let value = 0;
+    let bits = 0;
+
+    for (const byte of bytes) {
+        value = (value << 8) | byte;
+        bits += 8;
+
+        while (bits >= 5) {
+            output += base32Alphabet[(value >>> (bits - 5)) & 31];
+            bits -= 5;
+        }
+    }
+
+    if (bits > 0) {
+        output += base32Alphabet[(value << (5 - bits)) & 31];
+    }
+
+    return output;
+}
+
+function toBlobCid(data: Uint8Array): Cid {
+    const hash = createHash("sha256").update(data).digest();
+    const cidBytes = new Uint8Array(4 + hash.byteLength);
+    cidBytes.set([0x01, 0x55, 0x12, 0x20]);
+    cidBytes.set(hash, 4);
+
+    const cid = `b${toBase32(cidBytes)}`;
+    if (!isCid(cid)) {
+        throw new Error(`Generated invalid blob CID: ${cid}`);
+    }
+
+    return cid;
 }
 
 const HugoDraft = v.string()
@@ -68,6 +107,9 @@ const SiteConfig = v.object({
     title: v.string(),
     params: v.object({
         description: v.string().optional(),
+        homeInfoParams: v.object({
+            imageUrl: v.string().optional(),
+        }).optional(),
     }).optional(),
 });
 
@@ -105,13 +147,14 @@ function toPublishedAt(page: HugoPage): string {
     return new Date(value).toISOString();
 }
 
-function readSiteConfig(): { baseURL: string; title: string; description?: string; } {
+function readSiteConfig(): { baseURL: string; title: string; description?: string; iconPath?: string; } {
     const config = parseSiteConfig(
         parseYaml(readFileSync(path.join(repoRoot, "config.yml"), "utf8")),
     );
     const baseURL = config.baseURL;
     const title = config.title;
     const description = config.params?.description?.trim();
+    const iconPath = config.params?.homeInfoParams?.imageUrl?.trim();
 
     if (!baseURL || !title) {
         throw new Error("Could not read baseURL and title from config.yml");
@@ -121,11 +164,50 @@ function readSiteConfig(): { baseURL: string; title: string; description?: strin
         baseURL,
         title,
         description,
+        iconPath,
     };
 }
 
-function buildPublication(): StandardSitePublication {
-    const siteConfig = readSiteConfig();
+const imageMimeTypes = new Map([
+    [".gif", "image/gif"],
+    [".jpg", "image/jpeg"],
+    [".jpeg", "image/jpeg"],
+    [".png", "image/png"],
+    [".webp", "image/webp"],
+]);
+
+function readPublicationIcon(
+    iconPath: string | undefined,
+): { data: Uint8Array; mimeType: string; record: PublicationIcon; } | undefined {
+    if (!iconPath) {
+        return undefined;
+    }
+
+    const mimeType = imageMimeTypes.get(path.extname(iconPath).toLowerCase());
+    if (!mimeType) {
+        throw new Error(`Unsupported Standard.site publication icon type: ${iconPath}`);
+    }
+
+    const absolutePath = path.join(repoRoot, "assets", iconPath);
+    const stats = statSync(absolutePath);
+    if (stats.size > 1_000_000) {
+        throw new Error(`Standard.site publication icon must be at most 1 MB: ${iconPath}`);
+    }
+
+    const data = readFileSync(absolutePath);
+    return {
+        data,
+        mimeType,
+        record: {
+            $type: "blob",
+            ref: { $link: toBlobCid(data) },
+            mimeType,
+            size: data.byteLength,
+        },
+    };
+}
+
+function buildPublication(siteConfig = readSiteConfig()): StandardSitePublication {
     const publicationUrl = siteConfig.baseURL.replace(/\/+$/, "");
     const publicationRecord: PublicationRecord = {
         $type: "site.standard.publication",
@@ -215,7 +297,16 @@ function writeGeneratedFiles(records: StandardSiteRecords): void {
 }
 
 async function syncStandardSite(repo: StandardSiteRepository, action: "Prepared" | "Synced"): Promise<void> {
-    const publication = buildPublication();
+    const siteConfig = readSiteConfig();
+    const publication = buildPublication(siteConfig);
+    const icon = readPublicationIcon(siteConfig.iconPath);
+    if (icon) {
+        publication.record.icon = icon.record;
+        publication.iconUpload = {
+            data: icon.data,
+            mimeType: icon.mimeType,
+        };
+    }
     const publicationResult = await repo.upsertPublication(publication);
     const records = buildRecordsForPublication(publication, publicationResult.uri);
     const documentResult = await repo.syncDocumentRecords(records);

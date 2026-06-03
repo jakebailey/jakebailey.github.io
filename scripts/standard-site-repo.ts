@@ -2,6 +2,7 @@ import * as ComAtprotoRepoCreateRecord from "@atcute/atproto/types/repo/createRe
 import * as ComAtprotoRepoDeleteRecord from "@atcute/atproto/types/repo/deleteRecord";
 import * as ComAtprotoRepoListRecords from "@atcute/atproto/types/repo/listRecords";
 import * as ComAtprotoRepoPutRecord from "@atcute/atproto/types/repo/putRecord";
+import * as ComAtprotoRepoUploadBlob from "@atcute/atproto/types/repo/uploadBlob";
 import { Client, ok } from "@atcute/client";
 import { type Did, isTid, parseCanonicalResourceUri } from "@atcute/lexicons/syntax";
 import { safeParse } from "@atcute/lexicons/validations";
@@ -13,10 +14,15 @@ const ATPROTO_DID: Did<"plc"> = "did:plc:4eukmtg5kmyjmp6qw3xkpite";
 const ATPROTO_SERVICE = "https://bsky.social";
 
 export type PublicationRecord = SiteStandardPublication.Main;
+export type PublicationIcon = NonNullable<PublicationRecord["icon"]>;
 export type DocumentRecord = SiteStandardDocument.Main;
 export type StandardSitePublication = {
     url: string;
     record: PublicationRecord;
+    iconUpload?: {
+        data: Uint8Array;
+        mimeType: string;
+    };
 };
 export type DocumentSyncEntry = {
     path: string;
@@ -81,11 +87,34 @@ function arraysEqual<T>(left: readonly T[] | undefined, right: readonly T[] | un
     return left.every((value, index) => value === right[index]);
 }
 
+function blobCid(blob: PublicationIcon | undefined): string | undefined {
+    if (!blob) {
+        return undefined;
+    }
+
+    return "ref" in blob ? blob.ref.$link : blob.cid;
+}
+
+function blobSize(blob: PublicationIcon | undefined): number | undefined {
+    if (!blob) {
+        return undefined;
+    }
+
+    return "size" in blob ? blob.size : undefined;
+}
+
+function blobsEqual(left: PublicationIcon | undefined, right: PublicationIcon | undefined): boolean {
+    return blobCid(left) === blobCid(right)
+        && left?.mimeType === right?.mimeType
+        && blobSize(left) === blobSize(right);
+}
+
 function publicationRecordsEqual(left: PublicationRecord, right: PublicationRecord): boolean {
     return left.$type === right.$type
         && left.url === right.url
         && left.name === right.name
         && left.description === right.description
+        && blobsEqual(left.icon, right.icon)
         && left.preferences?.showInDiscover === right.preferences?.showInDiscover;
 }
 
@@ -181,6 +210,13 @@ export class StandardSiteRepo implements StandardSiteRepository {
             return { uri: existingPublication.uri, status: "skipped" };
         }
 
+        if (publication.iconUpload && blobCid(existingPublication?.value.icon) !== blobCid(publication.record.icon)) {
+            publication.record.icon = await this.#uploadBlob(
+                publication.iconUpload.data,
+                publication.iconUpload.mimeType,
+            );
+        }
+
         const result = existingPublication
             ? await this.#putRecord(
                 "site.standard.publication",
@@ -193,6 +229,18 @@ export class StandardSiteRepo implements StandardSiteRepository {
             uri: result.uri,
             status: existingPublication ? "updated" : "created",
         };
+    }
+
+    async #uploadBlob(blob: Uint8Array, mimeType: string): Promise<PublicationIcon> {
+        const result = await ok(
+            this.#rpc.call(ComAtprotoRepoUploadBlob, {
+                input: blob,
+                headers: {
+                    "content-type": mimeType,
+                },
+            }),
+        );
+        return result.blob;
     }
 
     async syncDocumentRecords(records: StandardSiteRecords): Promise<DocumentSyncResult> {
