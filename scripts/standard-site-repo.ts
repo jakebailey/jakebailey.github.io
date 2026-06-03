@@ -16,18 +16,20 @@ const ATPROTO_SERVICE = "https://bsky.social";
 export type PublicationRecord = SiteStandardPublication.Main;
 export type PublicationIcon = NonNullable<PublicationRecord["icon"]>;
 export type DocumentRecord = SiteStandardDocument.Main;
+type BlobUpload = {
+    data: Uint8Array;
+    mimeType: string;
+};
 export type StandardSitePublication = {
     url: string;
     record: PublicationRecord;
-    iconUpload?: {
-        data: Uint8Array;
-        mimeType: string;
-    };
+    iconUpload?: BlobUpload;
 };
 export type DocumentSyncEntry = {
     path: string;
     uri?: string;
     record: DocumentRecord;
+    coverImageUpload?: BlobUpload;
 };
 export type StandardSiteRecords = {
     publication: {
@@ -109,11 +111,16 @@ function blobsEqual(left: PublicationIcon | undefined, right: PublicationIcon | 
         && blobSize(left) === blobSize(right);
 }
 
+function recordsEqual(left: unknown, right: unknown): boolean {
+    return JSON.stringify(left ?? null) === JSON.stringify(right ?? null);
+}
+
 function publicationRecordsEqual(left: PublicationRecord, right: PublicationRecord): boolean {
     return left.$type === right.$type
         && left.url === right.url
         && left.name === right.name
         && left.description === right.description
+        && recordsEqual(left.basicTheme, right.basicTheme)
         && blobsEqual(left.icon, right.icon)
         && left.preferences?.showInDiscover === right.preferences?.showInDiscover;
 }
@@ -124,7 +131,9 @@ function documentRecordsEqual(left: DocumentRecord, right: DocumentRecord): bool
         && left.path === right.path
         && left.title === right.title
         && left.publishedAt === right.publishedAt
+        && left.updatedAt === right.updatedAt
         && left.description === right.description
+        && blobsEqual(left.coverImage, right.coverImage)
         && arraysEqual(left.tags, right.tags);
 }
 
@@ -293,6 +302,16 @@ export class StandardSiteRepo implements StandardSiteRepository {
                     skippedCount++;
                     continue;
                 }
+            }
+
+            if (
+                document.coverImageUpload
+                && blobCid(existingDocument?.value.coverImage) !== blobCid(document.record.coverImage)
+            ) {
+                document.record.coverImage = await this.#uploadBlob(
+                    document.coverImageUpload.data,
+                    document.coverImageUpload.mimeType,
+                );
             }
 
             const result = existingDocument

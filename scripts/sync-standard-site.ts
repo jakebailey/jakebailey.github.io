@@ -93,9 +93,17 @@ function parseHugoListRecords(value: unknown) {
 }
 
 const Frontmatter = v.object({
+    cover: v.object({
+        image: v.string().optional(),
+        relative: v.boolean().optional(),
+    }).optional(),
     description: v.string().optional(),
+    lastmod: v.string().optional(),
+    modified: v.string().optional(),
     summary: v.string().optional(),
     tags: v.array(v.string()).optional(),
+    updated: v.string().optional(),
+    updatedAt: v.string().optional(),
 });
 
 function parseFrontmatter(value: unknown) {
@@ -176,22 +184,23 @@ const imageMimeTypes = new Map([
     [".webp", "image/webp"],
 ]);
 
-function readPublicationIcon(
-    iconPath: string | undefined,
-): { data: Uint8Array; mimeType: string; record: PublicationIcon; } | undefined {
-    if (!iconPath) {
-        return undefined;
-    }
-
-    const mimeType = imageMimeTypes.get(path.extname(iconPath).toLowerCase());
+function readImageBlob(
+    repoRelativePath: string,
+    description: string,
+): { data: Uint8Array; mimeType: string; record: PublicationIcon; } {
+    const mimeType = imageMimeTypes.get(path.extname(repoRelativePath).toLowerCase());
     if (!mimeType) {
-        throw new Error(`Unsupported Standard.site publication icon type: ${iconPath}`);
+        throw new Error(`Unsupported Standard.site ${description} type: ${repoRelativePath}`);
     }
 
-    const absolutePath = path.join(repoRoot, "assets", iconPath);
+    const absolutePath = path.resolve(repoRoot, repoRelativePath);
+    if (!absolutePath.startsWith(`${repoRoot}${path.sep}`)) {
+        throw new Error(`Standard.site ${description} path must stay inside the repository: ${repoRelativePath}`);
+    }
+
     const stats = statSync(absolutePath);
     if (stats.size > 1_000_000) {
-        throw new Error(`Standard.site publication icon must be at most 1 MB: ${iconPath}`);
+        throw new Error(`Standard.site ${description} must be at most 1 MB: ${repoRelativePath}`);
     }
 
     const data = readFileSync(absolutePath);
@@ -207,10 +216,54 @@ function readPublicationIcon(
     };
 }
 
+function readPublicationIcon(
+    iconPath: string | undefined,
+): { data: Uint8Array; mimeType: string; record: PublicationIcon; } | undefined {
+    if (!iconPath) {
+        return undefined;
+    }
+
+    return readImageBlob(path.join("assets", iconPath), "publication icon");
+}
+
+function resolveCoverImagePath(page: HugoPage, frontmatter: ReturnType<typeof readFrontmatter>): string | undefined {
+    const image = frontmatter.cover?.image?.trim();
+    if (!image || URL.canParse(image)) {
+        return undefined;
+    }
+
+    if (frontmatter.cover?.relative) {
+        return path.join(path.dirname(page.path), image);
+    }
+
+    return path.join("static", image.replace(/^\/+/, ""));
+}
+
+function toUpdatedAt(frontmatter: ReturnType<typeof readFrontmatter>, contentPath: string): string | undefined {
+    const value = frontmatter.updatedAt || frontmatter.lastmod || frontmatter.updated || frontmatter.modified;
+    if (!value) {
+        return undefined;
+    }
+
+    const date = new Date(value);
+    if (Number.isNaN(date.getTime())) {
+        throw new Error(`Invalid update date for ${contentPath}: ${value}`);
+    }
+
+    return date.toISOString();
+}
+
 function buildPublication(siteConfig = readSiteConfig()): StandardSitePublication {
     const publicationUrl = siteConfig.baseURL.replace(/\/+$/, "");
     const publicationRecord: PublicationRecord = {
         $type: "site.standard.publication",
+        basicTheme: {
+            $type: "site.standard.theme.basic",
+            accent: { $type: "site.standard.theme.color#rgb", r: 17, g: 119, b: 204 },
+            accentForeground: { $type: "site.standard.theme.color#rgb", r: 255, g: 255, b: 255 },
+            background: { $type: "site.standard.theme.color#rgb", r: 255, g: 255, b: 255 },
+            foreground: { $type: "site.standard.theme.color#rgb", r: 30, g: 30, b: 30 },
+        },
         url: toGenericUri(publicationUrl),
         name: siteConfig.title,
         preferences: {
@@ -235,12 +288,18 @@ function buildDocuments(publicationUri: string): DocumentSyncEntry[] {
             const frontmatter = readFrontmatter(page.path);
             const documentPath = new URL(page.permalink).pathname;
             const description = frontmatter.description || frontmatter.summary;
+            const coverImagePath = resolveCoverImagePath(page, frontmatter);
+            const coverImage = coverImagePath
+                ? readImageBlob(coverImagePath, `cover image for ${page.path}`)
+                : undefined;
             const record: DocumentRecord = {
                 $type: "site.standard.document",
                 site: toGenericUri(publicationUri),
                 path: documentPath,
                 title: page.title,
                 publishedAt: toPublishedAt(page),
+                updatedAt: toUpdatedAt(frontmatter, page.path),
+                coverImage: coverImage?.record,
                 description,
                 tags: frontmatter.tags,
             };
@@ -248,6 +307,12 @@ function buildDocuments(publicationUri: string): DocumentSyncEntry[] {
             return {
                 path: documentPath,
                 record,
+                coverImageUpload: coverImage
+                    ? {
+                        data: coverImage.data,
+                        mimeType: coverImage.mimeType,
+                    }
+                    : undefined,
             };
         });
 }
