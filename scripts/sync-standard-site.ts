@@ -6,7 +6,8 @@ import { parse as parseCsv } from "csv-parse/sync";
 import matter from "gray-matter";
 import { execFileSync } from "node:child_process";
 import { createHash } from "node:crypto";
-import { mkdirSync, readFileSync, statSync, writeFileSync } from "node:fs";
+import { mkdirSync, mkdtempSync, readFileSync, rmSync, statSync, writeFileSync } from "node:fs";
+import { tmpdir } from "node:os";
 import path from "node:path";
 import { parseArgs } from "node:util";
 import { parse as parseYaml } from "yaml";
@@ -108,6 +109,15 @@ const Frontmatter = v.object({
 
 function parseFrontmatter(value: unknown) {
     return Frontmatter.parse(value, { mode: "strip" });
+}
+
+const HugoPageTextContent = v.object({
+    path: v.string(),
+    textContent: v.string(),
+});
+
+function parseHugoPageTextContent(value: unknown) {
+    return HugoPageTextContent.parse(value, { mode: "strip" });
 }
 
 const SiteConfig = v.object({
@@ -253,6 +263,56 @@ function toUpdatedAt(frontmatter: ReturnType<typeof readFrontmatter>, contentPat
     return date.toISOString();
 }
 
+function documentPathToGeneratedJsonPath(outputDir: string, documentPath: string): string {
+    if (!documentPath.startsWith("/")) {
+        throw new Error(`Expected absolute document path, got ${documentPath}`);
+    }
+
+    return path.join(outputDir, ...documentPath.split("/").filter(Boolean), "index.json");
+}
+
+function readHugoTextContent(documentPaths: Iterable<string>): Map<string, string> {
+    const tempDir = mkdtempSync(path.join(tmpdir(), "standard-site-hugo-"));
+    const outputDir = path.join(tempDir, "public");
+
+    try {
+        execFileSync(
+            "hugo",
+            [
+                "--destination",
+                outputDir,
+                "--cleanDestinationDir",
+                "--logLevel",
+                "error",
+            ],
+            {
+                cwd: repoRoot,
+                stdio: ["ignore", "ignore", "inherit"],
+            },
+        );
+
+        const textContentByPath = new Map<string, string>();
+        for (const documentPath of documentPaths) {
+            const generatedPath = documentPathToGeneratedJsonPath(outputDir, documentPath);
+            const textContent = parseHugoPageTextContent(
+                JSON.parse(readFileSync(generatedPath, "utf8")),
+            );
+
+            if (textContent.path !== documentPath) {
+                throw new Error(
+                    `Generated Standard.site text path mismatch: expected ${documentPath}, got ${textContent.path}`,
+                );
+            }
+
+            textContentByPath.set(documentPath, textContent.textContent);
+        }
+
+        return textContentByPath;
+    } finally {
+        rmSync(tempDir, { recursive: true, force: true });
+    }
+}
+
 function buildPublication(siteConfig = readSiteConfig()): StandardSitePublication {
     const publicationUrl = siteConfig.baseURL.replace(/\/+$/, "");
     const publicationRecord: PublicationRecord = {
@@ -281,9 +341,21 @@ function buildPublication(siteConfig = readSiteConfig()): StandardSitePublicatio
     };
 }
 
-function buildDocuments(publicationUri: string): DocumentSyncEntry[] {
-    return readHugoPages()
-        .filter((page) => page.section === "posts" && page.kind === "page" && !page.draft)
+function getTextContent(textContentByPath: Map<string, string>, documentPath: string): string {
+    const textContent = textContentByPath.get(documentPath);
+    if (textContent === undefined) {
+        throw new Error(`Missing generated Standard.site text content for ${documentPath}`);
+    }
+
+    return textContent;
+}
+
+function buildDocuments(
+    publicationUri: string,
+    pages: HugoPage[],
+    textContentByPath: Map<string, string>,
+): DocumentSyncEntry[] {
+    return pages
         .map((page) => {
             const frontmatter = readFrontmatter(page.path);
             const documentPath = new URL(page.permalink).pathname;
@@ -301,6 +373,7 @@ function buildDocuments(publicationUri: string): DocumentSyncEntry[] {
                 updatedAt: toUpdatedAt(frontmatter, page.path),
                 coverImage: coverImage?.record,
                 description,
+                textContent: getTextContent(textContentByPath, documentPath),
                 tags: frontmatter.tags,
             };
 
@@ -317,14 +390,19 @@ function buildDocuments(publicationUri: string): DocumentSyncEntry[] {
         });
 }
 
-function buildRecordsForPublication(publication: ReturnType<typeof buildPublication>, publicationUri: string) {
+function buildRecordsForPublication(
+    publication: ReturnType<typeof buildPublication>,
+    publicationUri: string,
+    pages: HugoPage[],
+    textContentByPath: Map<string, string>,
+) {
     return {
         publication: {
             uri: publicationUri,
             record: publication.record,
             url: publication.url,
         },
-        documents: buildDocuments(publicationUri),
+        documents: buildDocuments(publicationUri, pages, textContentByPath),
     };
 }
 
@@ -373,7 +451,12 @@ async function syncStandardSite(repo: StandardSiteRepository, action: "Prepared"
         };
     }
     const publicationResult = await repo.upsertPublication(publication);
-    const records = buildRecordsForPublication(publication, publicationResult.uri);
+    const pages = readHugoPages()
+        .filter((page) => page.section === "posts" && page.kind === "page" && !page.draft);
+    const textContentByPath = readHugoTextContent(
+        pages.map((page) => new URL(page.permalink).pathname),
+    );
+    const records = buildRecordsForPublication(publication, publicationResult.uri, pages, textContentByPath);
     const documentResult = await repo.syncDocumentRecords(records);
     writeGeneratedFiles(records);
 

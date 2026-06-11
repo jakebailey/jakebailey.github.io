@@ -79,6 +79,9 @@ outputs:
     - HTML
     - RSS
     - JSON
+  page:
+    - HTML
+    - JSON
 
 markup:
   highlight:

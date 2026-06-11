@@ -28,6 +28,7 @@
         "static/**",
         "resources/_gen/**",
         "assets/jsconfig.json",
+        "layouts/page.json",
         "**/hugo_stats.json"
     ],
     "plugins": [

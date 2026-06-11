@@ -1,0 +1,5 @@
+{{- dict
+    "path" .RelPermalink
+    "textContent" (strings.TrimSpace (.Plain | htmlUnescape))
+    | jsonify
+-}}

@@ -69,6 +69,19 @@ function tryParseListedDocument(value: unknown) {
     return result.ok ? result.value : undefined;
 }
 
+function assertValidRecord(
+    collection: "site.standard.publication" | "site.standard.document",
+    record: PublicationRecord | DocumentRecord,
+): void {
+    const result = collection === "site.standard.publication"
+        ? safeParse(SiteStandardPublication.mainSchema, record, { strict: true })
+        : safeParse(SiteStandardDocument.mainSchema, record, { strict: true });
+
+    if (!result.ok) {
+        throw new Error(`Invalid ${collection} record: ${result.message}`);
+    }
+}
+
 function withoutTrailingSlashes(value: string | undefined): string | undefined {
     return value?.replace(/\/+$/, "");
 }
@@ -133,12 +146,16 @@ function documentRecordsEqual(left: DocumentRecord, right: DocumentRecord): bool
         && left.publishedAt === right.publishedAt
         && left.updatedAt === right.updatedAt
         && left.description === right.description
+        && left.textContent === right.textContent
         && blobsEqual(left.coverImage, right.coverImage)
         && arraysEqual(left.tags, right.tags);
 }
 
 export class DryRunStandardSiteRepo implements StandardSiteRepository {
-    async upsertPublication(): Promise<{ uri: string; status: RecordWriteStatus; }> {
+    async upsertPublication(
+        publication: StandardSitePublication,
+    ): Promise<{ uri: string; status: RecordWriteStatus; }> {
+        assertValidRecord("site.standard.publication", publication.record);
         return {
             uri: `at://${ATPROTO_DID}/site.standard.publication/${this.#tid(0)}`,
             status: "created",
@@ -147,6 +164,7 @@ export class DryRunStandardSiteRepo implements StandardSiteRepository {
 
     async syncDocumentRecords(records: StandardSiteRecords): Promise<DocumentSyncResult> {
         for (const [index, document] of records.documents.entries()) {
+            assertValidRecord("site.standard.document", document.record);
             document.uri = `at://${ATPROTO_DID}/site.standard.document/${this.#tid(index + 1)}`;
         }
 
@@ -353,6 +371,7 @@ export class StandardSiteRepo implements StandardSiteRepository {
         collection: "site.standard.publication" | "site.standard.document",
         record: PublicationRecord | DocumentRecord,
     ): Promise<{ uri: string; }> {
+        assertValidRecord(collection, record);
         return ok(
             this.#rpc.call(ComAtprotoRepoCreateRecord, {
                 input: {
@@ -370,6 +389,7 @@ export class StandardSiteRepo implements StandardSiteRepository {
         rkey: string,
         record: PublicationRecord | DocumentRecord,
     ): Promise<{ uri: string; }> {
+        assertValidRecord(collection, record);
         return ok(
             this.#rpc.call(ComAtprotoRepoPutRecord, {
                 input: {
