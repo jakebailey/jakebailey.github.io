@@ -137,13 +137,23 @@ function parseSiteConfig(value: unknown) {
 
 type HugoPage = v.Infer<typeof HugoPage>;
 
+function toHugoListCsv(output: string): string {
+    const header = "path,slug,title,date,expiryDate,publishDate,draft,permalink,kind,section";
+    const start = output.indexOf(header);
+    if (start === -1) {
+        throw new Error(`Could not find expected hugo list CSV header in output:\n${output}`);
+    }
+
+    return output.slice(start);
+}
+
 function readHugoPages(): HugoPage[] {
     const output = execFileSync("hugo", ["list", "published", "--logLevel", "error"], {
         cwd: repoRoot,
         encoding: "utf8",
     });
     return parseHugoListRecords(
-        parseCsv(output, {
+        parseCsv(toHugoListCsv(output), {
             columns: true,
             skip_empty_lines: true,
         }),
