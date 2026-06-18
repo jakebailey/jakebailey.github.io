@@ -14,7 +14,7 @@
         "@atcute/standard-site": "^2.0.0",
         "@badrap/valita": "^0.5.4",
         "@types/node": "^24.12.4",
-        "csv-parse": "^6.2.1",
+        "csv-parse": "^7.0.0",
         "gray-matter": "^4.0.3",
         "typescript": "^6.0.3",
         "yaml": "^2.9.0"
