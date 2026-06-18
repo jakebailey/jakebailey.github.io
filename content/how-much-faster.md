@@ -202,7 +202,7 @@ comments: false
   <div class="calculator-form">
     <div class="input-group">
       <label for="baseline">Old time:</label>
-      <input type="number" id="baseline" step="any" placeholder="e.g., 100">
+      <input type="number" id="baseline" step="any" placeholder="e.g., 100" autofocus>
     </div>
     <div class="input-group">
       <label for="newtime">New time:</label>
