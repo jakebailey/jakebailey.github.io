@@ -1,15 +1,15 @@
 ---
-title: "Detecting dubious shadowing in Go"
-date: "2025-04-06T09:49:14-07:00"
-summary: "The most common porting bug in the TypeScript Go port"
-description: "The most common porting bug in the TypeScript Go port"
+title: 'Detecting dubious shadowing in Go'
+date: '2025-04-06T09:49:14-07:00'
+summary: 'The most common porting bug in the TypeScript Go port'
+description: 'The most common porting bug in the TypeScript Go port'
 tags:
   - go
   - go-analysis
   - typescript-go
 cover:
   hidden: true
-  image: "ogimage.png"
+  image: 'ogimage.png'
   relative: true
 ---
 
