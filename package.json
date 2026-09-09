@@ -17,7 +17,7 @@
         "@dprint/markdown": "^0.22.1",
         "@dprint/typescript": "^0.96.1",
         "@types/node": "^24.12.4",
-        "csv-parse": "^6.2.1",
+        "csv-parse": "^7.0.0",
         "dprint-plugin-malva": "^0.16.0",
         "dprint-plugin-yaml": "^0.6.0",
         "gray-matter": "^4.0.3",
