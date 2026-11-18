@@ -5,7 +5,7 @@
         "check:scripts": "tsc -p scripts/tsconfig.json",
         "sync-standard-site": "node scripts/sync-standard-site.ts"
     },
-    "packageManager": "npm@11.16.0+sha512.03be172fc3b199c7a06433163e459be5b110a6983c1dd6305b7ac10f6b0fa12e1440755a8df6b1064ab2ccb789df0474919fb9c684e322dc57685ede21752ccb",
+    "packageManager": "npm@11.21.3+sha512.e427fe8c4f9772d6e11ffce338ea970be8adcbb79e73f4e4938425dfcb5feb0fb586da76c183c7984e1cd51d44b370d8db6ec0735e3e48bae5609c2406271b4e",
     "devDependencies": {
         "@atcute/atproto": "^4.0.1",
         "@atcute/client": "^5.0.0",
